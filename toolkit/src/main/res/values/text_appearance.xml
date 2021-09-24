@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
+
+  <style name="Toolkit" />
+
+  <style name="Toolkit.Text" />
+
+  <!-- region Roboto Typography -->
+  <style name="Toolkit.Text.Roboto">
+    <item name="android:fontFamily">@font/roboto_regular</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium">
+    <item name="android:fontFamily">@font/roboto_medium</item>
+  </style>
+  <!-- endregion Roboto Typography -->
+
+  <!-- region Roboto Variation Size  -->
+  <style name="Toolkit.Text.Roboto.28sp">
+    <item name="android:textSize">@dimen/toolkit_textSize28</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.26sp">
+    <item name="android:textSize">@dimen/toolkit_textSize26</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.24sp">
+    <item name="android:textSize">@dimen/toolkit_textSize24</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.22sp">
+    <item name="android:textSize">@dimen/toolkit_textSize22</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.20sp">
+    <item name="android:textSize">@dimen/toolkit_textSize20</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.18sp">
+    <item name="android:textSize">@dimen/toolkit_textSize18</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.10sp">
+    <item name="android:textSize">@dimen/toolkit_textSize10</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.16sp">
+    <item name="android:textSize">@dimen/toolkit_textSize16</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.14sp">
+    <item name="android:textSize">@dimen/toolkit_textSize14</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.12sp">
+    <item name="android:textSize">@dimen/toolkit_textSize12</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.28sp">
+    <item name="android:textSize">@dimen/toolkit_textSize28</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.26sp">
+    <item name="android:textSize">@dimen/toolkit_textSize26</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.24sp">
+    <item name="android:textSize">@dimen/toolkit_textSize24</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.22sp">
+    <item name="android:textSize">@dimen/toolkit_textSize22</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.20sp">
+    <item name="android:textSize">@dimen/toolkit_textSize20</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.18sp">
+    <item name="android:textSize">@dimen/toolkit_textSize18</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.16sp">
+    <item name="android:textSize">@dimen/toolkit_textSize16</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.14sp">
+    <item name="android:textSize">@dimen/toolkit_textSize14</item>
+  </style>
+
+  <style name="Toolkit.Text.Roboto.Medium.12sp">
+    <item name="android:textSize">@dimen/toolkit_textSize12</item>
+  </style>
+  <!-- endregion Roboto Variation Size  -->
+
+</resources>

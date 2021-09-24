@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MesaNews"
 include ':app'
+include ':toolkit'

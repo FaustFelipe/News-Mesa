@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- region Margins-->
+  <dimen name="toolkit_dimen0">0dp</dimen>
+  <dimen name="toolkit_dimen2">2dp</dimen>
+  <dimen name="toolkit_dimen4">4dp</dimen>
+  <dimen name="toolkit_dimen6">6dp</dimen>
+  <dimen name="toolkit_dimen8">8dp</dimen>
+  <dimen name="toolkit_dimen9">9dp</dimen>
+  <dimen name="toolkit_dimen10">10dp</dimen>
+  <dimen name="toolkit_dimen12">12dp</dimen>
+  <dimen name="toolkit_dimen14">14dp</dimen>
+  <dimen name="toolkit_dimen16">16dp</dimen>
+  <dimen name="toolkit_dimen18">18dp</dimen>
+  <dimen name="toolkit_dimen19">19dp</dimen>
+  <dimen name="toolkit_dimen20">20dp</dimen>
+  <dimen name="toolkit_dimen22">22dp</dimen>
+  <dimen name="toolkit_dimen24">24dp</dimen>
+  <dimen name="toolkit_dimen26">26dp</dimen>
+  <dimen name="toolkit_dimen28">28dp</dimen>
+  <dimen name="toolkit_dimen30">30dp</dimen>
+  <dimen name="toolkit_dimen32">32dp</dimen>
+  <dimen name="toolkit_dimen34">34dp</dimen>
+  <dimen name="toolkit_dimen35">35dp</dimen>
+  <dimen name="toolkit_dimen36">36dp</dimen>
+  <dimen name="toolkit_dimen38">38dp</dimen>
+  <dimen name="toolkit_dimen40">40dp</dimen>
+  <dimen name="toolkit_dimen42">42dp</dimen>
+  <dimen name="toolkit_dimen44">44dp</dimen>
+  <dimen name="toolkit_dimen46">46dp</dimen>
+  <dimen name="toolkit_dimen48">48dp</dimen>
+  <dimen name="toolkit_dimen50">50dp</dimen>
+  <dimen name="toolkit_dimen52">52dp</dimen>
+  <dimen name="toolkit_dimen54">54dp</dimen>
+  <dimen name="toolkit_dimen56">56dp</dimen>
+  <dimen name="toolkit_dimen58">58dp</dimen>
+  <dimen name="toolkit_dimen60">60dp</dimen>
+  <dimen name="toolkit_dimen62">62dp</dimen>
+  <dimen name="toolkit_dimen64">64dp</dimen>
+  <dimen name="toolkit_dimen66">66dp</dimen>
+  <dimen name="toolkit_dimen68">68dp</dimen>
+  <dimen name="toolkit_dimen70">70dp</dimen>
+  <dimen name="toolkit_dimen72">72dp</dimen>
+  <dimen name="toolkit_dimen76">76dp</dimen>
+  <dimen name="toolkit_dimen80">80dp</dimen>
+  <dimen name="toolkit_dimen82">82dp</dimen>
+  <dimen name="toolkit_dimen84">84dp</dimen>
+  <dimen name="toolkit_dimen86">86dp</dimen>
+  <dimen name="toolkit_dimen100">100dp</dimen>
+  <dimen name="toolkit_dimen106">106dp</dimen>
+  <dimen name="toolkit_dimen110">110dp</dimen>
+  <dimen name="toolkit_dimen120">120dp</dimen>
+  <dimen name="toolkit_dimen122">122dp</dimen>
+  <dimen name="toolkit_dimen130">130dp</dimen>
+  <dimen name="toolkit_dimen140">140dp</dimen>
+  <dimen name="toolkit_dimen144">144dp</dimen>
+  <dimen name="toolkit_dimen146">146dp</dimen>
+  <dimen name="toolkit_dimen160">160dp</dimen>
+  <dimen name="toolkit_dimen168">168dp</dimen>
+  <dimen name="toolkit_dimen180">180dp</dimen>
+  <dimen name="toolkit_dimen208">208dp</dimen>
+  <!-- endregion Margins -->
+
+  <!-- region Font Size -->
+  <dimen name="toolkit_textSize8">8sp</dimen>
+  <dimen name="toolkit_textSize10">10sp</dimen>
+  <dimen name="toolkit_textSize12">12sp</dimen>
+  <dimen name="toolkit_textSize14">14sp</dimen>
+  <dimen name="toolkit_textSize15">15sp</dimen>
+  <dimen name="toolkit_textSize16">16sp</dimen>
+  <dimen name="toolkit_textSize18">18sp</dimen>
+  <dimen name="toolkit_textSize20">20sp</dimen>
+  <dimen name="toolkit_textSize21">21sp</dimen>
+  <dimen name="toolkit_textSize22">22sp</dimen>
+  <dimen name="toolkit_textSize24">24sp</dimen>
+  <dimen name="toolkit_textSize23">23sp</dimen>
+  <dimen name="toolkit_textSize25">25sp</dimen>
+  <dimen name="toolkit_textSize26">26sp</dimen>
+  <dimen name="toolkit_textSize27">27sp</dimen>
+  <dimen name="toolkit_textSize28">28sp</dimen>
+  <dimen name="toolkit_textSize30">30sp</dimen>
+  <dimen name="toolkit_textSize32">32sp</dimen>
+  <dimen name="toolkit_textSize34">34sp</dimen>
+  <dimen name="toolkit_textSize36">36sp</dimen>
+  <!-- endregion -->
+
+</resources>

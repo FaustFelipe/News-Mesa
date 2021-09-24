@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">MesaNews</string>
+
+    <!-- region actions -->
+    <string name="action_email">E-mail</string>
+    <string name="action_password">Senha</string>
+    <string name="action_signin">Entrar</string>
+    <!-- endregion actions -->
+
+    <!-- region sign in -->
+    <string name="singin_email">Entrar com e-mail</string>
+    <string name="singin_dont_have_account">Não tenho conta. Cadastrar</string>
+    <!-- endregion signin -->
+
 </resources>
