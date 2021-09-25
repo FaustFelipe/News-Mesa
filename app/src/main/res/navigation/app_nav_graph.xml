@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="br.com.felipefaustini.mesanews.presentation.splash.SplashFragment"
+        android:name="br.com.felipefaustini.mesanews.presentation.onboarding.OnboardingFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_onboarding" >
 
         <action
             android:id="@+id/action_splashFragment_to_signInFragment"

@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MesaNews.iml" filepath="$PROJECT_DIR$/.idea/modules/MesaNews.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MesaNews.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MesaNews.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/MesaNews.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/MesaNews.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/MesaNews.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/MesaNews.domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/toolkit/MesaNews.toolkit.iml" filepath="$PROJECT_DIR$/.idea/modules/toolkit/MesaNews.toolkit.iml" />
     </modules>
   </component>
