@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -17,9 +18,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField('String', 'BASE_URL', '"https://mesa-news-api.herokuapp.com/"')
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField('String', 'BASE_URL', '"https://mesa-news-api.herokuapp.com/"')
         }
     }
     compileOptions {
@@ -46,6 +52,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
 
+    // Moshi
+    implementation "com.squareup.moshi:moshi:$moshi_version"
+    implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+
     // Okhttp
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version") {
@@ -53,6 +64,14 @@ dependencies {
     }
 
     // Koin
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "io.insert-koin:koin-android-scope:$koin_version"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-test:$koin_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // Tests
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_version"
+    testImplementation "androidx.arch.core:core-testing:$coretesting_version"
 }

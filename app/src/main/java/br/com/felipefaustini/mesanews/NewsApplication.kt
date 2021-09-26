@@ -1,7 +1,10 @@
 package br.com.felipefaustini.mesanews
 
 import android.app.Application
-import br.com.felipefaustini.core.networkModule
+import br.com.felipefaustini.core.di.networkModule
+import br.com.felipefaustini.core.di.repositoryModule
+import br.com.felipefaustini.domain.di.useCasesModule
+import br.com.felipefaustini.mesanews.di.viewModulesModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -21,7 +24,10 @@ class NewsApplication: Application() {
             androidContext(this@NewsApplication)
             koin.loadModules(
                 listOf(
-                    networkModule
+                    networkModule,
+                    repositoryModule,
+                    useCasesModule,
+                    viewModulesModule
                 )
             )
         }
