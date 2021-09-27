@@ -2,9 +2,12 @@
     <string name="app_name">MesaNews</string>
 
     <!-- region actions -->
+    <string name="action_name">Nome</string>
     <string name="action_email">E-mail</string>
     <string name="action_password">Senha</string>
+    <string name="action_confirm_password">Confirmar senha</string>
     <string name="action_signin">Entrar</string>
+    <string name="action_signup">Cadastrar</string>
     <!-- endregion actions -->
 
     <!-- region sign in -->

@@ -1,10 +1,12 @@
 package br.com.felipefaustini.mesanews.presentation.signin
 
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import br.com.felipefaustini.mesanews.R
 import br.com.felipefaustini.mesanews.presentation.BaseFragment
-import br.com.felipefaustini.mesanews.utils.textChanged
+import br.com.felipefaustini.mesanews.utils.extensions.showOrGoneInCondition
+import br.com.felipefaustini.mesanews.utils.extensions.textChanged
 import kotlinx.android.synthetic.main.fragment_signin.*
+import kotlinx.android.synthetic.main.ly_loading_default.*
 import org.koin.android.ext.android.inject
 
 class SignInFragment: BaseFragment(R.layout.fragment_signin) {
@@ -12,17 +14,11 @@ class SignInFragment: BaseFragment(R.layout.fragment_signin) {
     private val signInViewModule: SignInViewModule by inject()
     
     override fun setupViews() {
-        toolbar.apply {
-            (activity as? AppCompatActivity)?.setSupportActionBar(this)
-            (activity as? AppCompatActivity)?.supportActionBar?.let {
-                it.setHomeAsUpIndicator(R.drawable.toolkit_ic_white_close_24)
-                it.setDisplayShowHomeEnabled(true)
-                it.setDisplayHomeAsUpEnabled(true)
-            }
-            setNavigationOnClickListener {
-                requireActivity().onBackPressed()
-            }
-        }
+
+    }
+
+    override fun getToolbar(): Toolbar? {
+        return toolbar
     }
 
     override fun setupActions() {
@@ -41,7 +37,8 @@ class SignInFragment: BaseFragment(R.layout.fragment_signin) {
 
     override fun setupObservables() {
         signInViewModule.loadingLiveData.observe(viewLifecycleOwner) {
-            println("Loading: $it")
+            container_loading.showOrGoneInCondition(it)
+            blockUserInteraction(it)
         }
 
         signInViewModule.errorMessageLiveData.observe(viewLifecycleOwner) {

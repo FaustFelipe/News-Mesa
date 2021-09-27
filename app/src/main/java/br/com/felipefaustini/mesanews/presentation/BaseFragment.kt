@@ -2,8 +2,11 @@ package br.com.felipefaustini.mesanews.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -13,11 +16,29 @@ abstract class BaseFragment(
     @LayoutRes layoutRes: Int = 0
 ): Fragment(layoutRes) {
 
+    private var toolbar: Toolbar? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+        setupToolbar()
         setupActions()
         setupObservables()
+    }
+
+    protected open fun setupToolbar() {
+        toolbar = getToolbar()
+        toolbar?.apply {
+            (activity as? AppCompatActivity)?.setSupportActionBar(this)
+            (activity as? AppCompatActivity)?.supportActionBar?.let {
+                it.setHomeAsUpIndicator(R.drawable.toolkit_ic_white_close_24)
+                it.setDisplayShowHomeEnabled(true)
+                it.setDisplayHomeAsUpEnabled(true)
+            }
+            setNavigationOnClickListener {
+                requireActivity().onBackPressed()
+            }
+        }
     }
 
     protected open fun navigate(
@@ -50,11 +71,26 @@ abstract class BaseFragment(
         }
     }
 
-    abstract fun setupViews()
+    protected abstract fun setupViews()
 
-    abstract fun setupActions()
+    protected abstract fun setupActions()
 
-    abstract fun setupObservables()
+    protected abstract fun setupObservables()
+
+    protected open fun getToolbar(): Toolbar? {
+        return null
+    }
+
+    protected fun blockUserInteraction(block: Boolean) {
+        if (block) {
+            activity?.window?.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+        } else {
+            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
+    }
 
     protected enum class NavigateEnterAnimFrom {
         RIGHT,

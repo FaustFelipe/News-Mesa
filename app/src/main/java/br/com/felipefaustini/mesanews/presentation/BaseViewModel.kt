@@ -7,7 +7,9 @@ import br.com.felipefaustini.mesanews.utils.EventLiveData
 
 open class BaseViewModel: ViewModel() {
 
-    protected val _loadingLiveData = MutableLiveData<Boolean>()
+    protected val _loadingLiveData = MutableLiveData<Boolean>().apply {
+        value = false
+    }
     val loadingLiveData: LiveData<Boolean> = _loadingLiveData
 
     protected val _errorMessageLiveData = EventLiveData<String>()

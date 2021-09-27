@@ -6,7 +6,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1537242472266244" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.34270833333333334" />
         <entry key="app/src/main/res/layout/fragment_signin.xml" value="0.19701086956521738" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.2726449275362319" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.34270833333333334" />
+        <entry key="app/src/main/res/layout/ly_loading_default.xml" value="0.2726449275362319" />
       </map>
     </option>
   </component>
