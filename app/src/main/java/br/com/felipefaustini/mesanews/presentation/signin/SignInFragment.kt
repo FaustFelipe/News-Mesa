@@ -7,11 +7,11 @@ import br.com.felipefaustini.mesanews.utils.extensions.showOrGoneInCondition
 import br.com.felipefaustini.mesanews.utils.extensions.textChanged
 import kotlinx.android.synthetic.main.fragment_signin.*
 import kotlinx.android.synthetic.main.ly_loading_default.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInFragment: BaseFragment(R.layout.fragment_signin) {
 
-    private val signInViewModule: SignInViewModule by inject()
+    private val signInViewModule: SignInViewModel by viewModel()
     
     override fun setupViews() {
 
