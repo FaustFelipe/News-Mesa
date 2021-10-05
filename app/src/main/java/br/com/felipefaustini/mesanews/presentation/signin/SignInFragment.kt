@@ -11,7 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInFragment: BaseFragment(R.layout.fragment_signin) {
 
-    private val signInViewModule: SignInViewModel by viewModel()
+    private val signInViewModel: SignInViewModel by viewModel()
     
     override fun setupViews() {
 
@@ -23,25 +23,25 @@ class SignInFragment: BaseFragment(R.layout.fragment_signin) {
 
     override fun setupActions() {
         input_email.textChanged {
-            signInViewModule.email = it
+            signInViewModel.email = it
         }
 
         input_password.textChanged {
-            signInViewModule.password = it
+            signInViewModel.password = it
         }
 
         btn_sign_in.setOnClickListener {
-            signInViewModule.signIn()
+            signInViewModel.signIn()
         }
     }
 
     override fun setupObservables() {
-        signInViewModule.loadingLiveData.observe(viewLifecycleOwner) {
+        signInViewModel.loadingLiveData.observe(viewLifecycleOwner) {
             container_loading.showOrGoneInCondition(it)
             blockUserInteraction(it)
         }
 
-        signInViewModule.errorMessageLiveData.observe(viewLifecycleOwner) {
+        signInViewModel.errorMessageLiveData.observe(viewLifecycleOwner) {
             println("Error: $it")
         }
     }

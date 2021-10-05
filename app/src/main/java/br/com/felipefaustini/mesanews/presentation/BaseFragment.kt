@@ -67,7 +67,7 @@ abstract class BaseFragment(
             currentDestination?.getAction(resId)?.navOptions?.let {
                 options.setPopUpTo(it.popUpTo, it.isPopUpToInclusive)
             }
-            navigate(resId, args, options.build())
+            navigate(resId, args/*, options.build()*/)
         }
     }
 
