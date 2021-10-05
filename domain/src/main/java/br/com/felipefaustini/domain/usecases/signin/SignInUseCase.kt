@@ -11,7 +11,11 @@ class SignInUseCase(
 
     override suspend fun signIn(email: String, password: String): Result<Token> {
         val signIn = SignIn(email, password)
-        return repository.signIn(signIn)
+        val response = repository.signIn(signIn)
+        if (response is Result.Success) {
+            repository.saveToken(response.data)
+        }
+        return response
     }
 
 }

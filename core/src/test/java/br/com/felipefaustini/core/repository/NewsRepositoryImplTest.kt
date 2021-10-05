@@ -1,5 +1,6 @@
 package br.com.felipefaustini.core.repository
 
+import android.content.SharedPreferences
 import br.com.felipefaustini.core.api.NewsApi
 import br.com.felipefaustini.core.models.request.SignInRequest
 import br.com.felipefaustini.core.models.request.SignUpRequest
@@ -21,18 +22,25 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import retrofit2.Response
 
-@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
+@ExperimentalCoroutinesApi
 class NewsRepositoryImplTest {
 
     @Mock
     private lateinit var newsApi: NewsApi
 
+    @Mock
+    private lateinit var sharedPreferences: SharedPreferences
+
     private lateinit var repository: NewsRepositoryImpl
 
     @Before
     fun beforeEachTest() {
-        repository = NewsRepositoryImpl(newsApi, TestCoroutineDispatcher())
+        repository = NewsRepositoryImpl(
+            newsApi,
+            TestCoroutineDispatcher(),
+            sharedPreferences
+        )
     }
 
     @Test

@@ -1,6 +1,8 @@
 package usecases.signup
 
+import br.com.felipefaustini.domain.models.SignUp
 import br.com.felipefaustini.domain.models.Token
+import br.com.felipefaustini.domain.repository.NewsRepository
 import br.com.felipefaustini.domain.usecases.signup.SignUpUseCase
 import br.com.felipefaustini.domain.utils.Result
 import junit.framework.Assert.assertEquals
@@ -8,19 +10,24 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
-import repository.FakeNewsRepository
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
+@RunWith(MockitoJUnitRunner::class)
 @ExperimentalCoroutinesApi
 class SignUpUseCaseTest {
 
-    private lateinit var repository: FakeNewsRepository
+    @Mock
+    private lateinit var repository: NewsRepository
 
     private lateinit var useCase: SignUpUseCase
 
     @Before
     fun beforeEachTest() {
-        repository = FakeNewsRepository()
-
         useCase = SignUpUseCase(repository)
     }
 
@@ -30,11 +37,16 @@ class SignUpUseCaseTest {
         val name = "Felipe"
         val email = "email"
         val password = "123"
+        val signUp = SignUp(name, email, password)
 
-        repository.updateTokenForTesting(Token("123"))
+        whenever(repository.signUp(signUp))
+            .thenReturn(Result.Success(Token("123")))
 
         val result = useCase.signUp(name, email, password)
 
+        verify(repository).signUp(signUp)
+        verify(repository).saveToken(Token("123"))
+        verifyNoMoreInteractions(repository)
         assertEquals(expected, result)
     }
 
@@ -45,12 +57,15 @@ class SignUpUseCaseTest {
         val name = "Felipe"
         val email = "email"
         val password = "123"
+        val signUp = SignUp(name, email, password)
 
-        repository.updateTokenForTesting(null)
-        repository.updateExceptionForTesting(error)
+        whenever(repository.signUp(signUp))
+            .thenReturn(Result.Error(error.message, error))
 
         val result = useCase.signUp(name, email, password)
 
+        verify(repository).signUp(signUp)
+        verifyNoMoreInteractions(repository)
         assertEquals(expected, result)
     }
 

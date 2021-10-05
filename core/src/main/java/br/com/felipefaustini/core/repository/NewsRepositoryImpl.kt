@@ -1,5 +1,6 @@
 package br.com.felipefaustini.core.repository
 
+import android.content.SharedPreferences
 import br.com.felipefaustini.core.models.mappers.SignInMapper
 import br.com.felipefaustini.core.api.NewsApi
 import br.com.felipefaustini.core.models.mappers.SignUpMapper
@@ -13,7 +14,8 @@ import kotlin.coroutines.CoroutineContext
 
 class NewsRepositoryImpl(
     private val api: NewsApi,
-    private val coroutineContext: CoroutineContext
+    private val coroutineContext: CoroutineContext,
+    private val sharedPreferences: SharedPreferences
 ): NewsRepository {
 
     override suspend fun signIn(signIn: SignIn): Result<Token> = safeCall(coroutineContext) {
@@ -30,6 +32,17 @@ class NewsRepositoryImpl(
         val headers = response.headers()
         val data = response.body()!!
         Result.Success(Token(token = data.token))
+    }
+
+    override suspend fun saveToken(token: Token) {
+        sharedPreferences
+            .edit()
+            .putString(TOKEN_PARAM, token.token)
+            .apply()
+    }
+
+    companion object {
+        private const val TOKEN_PARAM = "tokenParam"
     }
 
 }

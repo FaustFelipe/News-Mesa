@@ -1,5 +1,7 @@
 package br.com.felipefaustini.core.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import br.com.felipefaustini.core.BuildConfig
 import br.com.felipefaustini.core.api.NewsApi
 import br.com.felipefaustini.core.repository.NewsRepositoryImpl
@@ -7,6 +9,7 @@ import br.com.felipefaustini.domain.repository.NewsRepository
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -57,10 +60,15 @@ val networkModule = module {
 
 val repositoryModule = module {
 
-    fun provideRepositoryModule(newsApi: NewsApi): NewsRepository {
-        return NewsRepositoryImpl(newsApi, Dispatchers.IO)
+    fun providePrefs(context: Context): SharedPreferences {
+        return context.getSharedPreferences("mesa_news_prefs", Context.MODE_PRIVATE)
     }
 
-    single { provideRepositoryModule(get()) }
+    fun provideRepositoryModule(newsApi: NewsApi, preferences: SharedPreferences): NewsRepository {
+        return NewsRepositoryImpl(newsApi, Dispatchers.IO, preferences)
+    }
+
+    single { provideRepositoryModule(get(), get()) }
+    single { providePrefs(androidContext()) }
 
 }

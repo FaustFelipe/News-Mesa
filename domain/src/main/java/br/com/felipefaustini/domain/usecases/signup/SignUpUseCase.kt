@@ -11,7 +11,11 @@ class SignUpUseCase(
 
     override suspend fun signUp(name: String, email: String, password: String): Result<Token> {
         val signUp = SignUp(name, email, password)
-        return repository.signUp(signUp)
+        val response = repository.signUp(signUp)
+        if (response is Result.Success) {
+            repository.saveToken(response.data)
+        }
+        return response
     }
 
 }
