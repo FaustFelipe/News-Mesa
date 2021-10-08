@@ -1,15 +1,12 @@
 package br.com.felipefaustini.mesanews.presentation.signup
 
-import androidx.lifecycle.viewModelScope
-import br.com.felipefaustini.domain.usecases.signup.ISignUpUseCase
+import br.com.felipefaustini.domain.usecases.signup.SignUpUseCase
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.mesanews.presentation.BaseViewModel
 import br.com.felipefaustini.mesanews.utils.EventLiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class SignUpViewModel(
-    private val useCase: ISignUpUseCase
+    private val useCase: SignUpUseCase
 ): BaseViewModel() {
 
     var name: String = ""
@@ -24,17 +21,15 @@ class SignUpViewModel(
 
     fun signUp() {
         if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                _loadingLiveData.postValue(true)
+            launchDataLoad {
                 when(val result = useCase.signUp(name, email, password)) {
                     is Result.Success -> {
                         _signUpGoHomeLiveData.postValue(Unit)
                     }
                     is Result.Error -> {
-                        _errorMessageLiveData.postValue(result.message ?: "")
+                        _errorMessageLiveData.postValue("Erro")
                     }
                 }
-                _loadingLiveData.postValue(false)
             }
         } else {
             _errorFieldsEmpty.postValue(Unit)

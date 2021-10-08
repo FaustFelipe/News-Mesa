@@ -44,6 +44,10 @@ class SignInFragment: BaseFragment(R.layout.fragment_signin) {
         signInViewModel.errorMessageLiveData.observe(viewLifecycleOwner) {
             println("Error: $it")
         }
+
+        signInViewModel.signInGoHomeLiveData.observe(viewLifecycleOwner) {
+            navigate(R.id.action_signInFragment_to_homeFragment)
+        }
     }
     
 }

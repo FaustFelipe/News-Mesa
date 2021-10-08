@@ -1,26 +1,47 @@
 package br.com.felipefaustini.mesanews.presentation.signup
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import br.com.felipefaustini.domain.models.SignUp
+import br.com.felipefaustini.domain.models.Token
+import br.com.felipefaustini.domain.repository.NewsRepository
+import br.com.felipefaustini.domain.usecases.signup.SignUpUseCase
+import br.com.felipefaustini.domain.utils.ErrorEntity
+import br.com.felipefaustini.domain.utils.Result
+import br.com.felipefaustini.mesanews.MainCoroutineRule
 import br.com.felipefaustini.mesanews.getOrAwaitValue
-import org.junit.Assert.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.whenever
 
+@RunWith(MockitoJUnitRunner::class)
+@ExperimentalCoroutinesApi
 class SignUpViewModelTest {
+
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var fakeSignUpUseCase: FakeSignUpUseCase
+    @Mock
+    private lateinit var repository: NewsRepository
+
+    private lateinit var signUpUseCase: SignUpUseCase
 
     private lateinit var signUpViewModel: SignUpViewModel
 
     @Before
-    fun beforeEachTest() {
-        fakeSignUpUseCase = FakeSignUpUseCase()
+    fun setupDispatcher() {
+        signUpUseCase = SignUpUseCase(repository)
 
-        signUpViewModel = SignUpViewModel(fakeSignUpUseCase)
+        signUpViewModel = SignUpViewModel(signUpUseCase)
     }
 
     @Test
@@ -33,10 +54,13 @@ class SignUpViewModelTest {
     }
 
     @Test
-    fun signUp_goToHomeIfSuccefullySignUp() {
-        signUpViewModel.name = "Felipe"
-        signUpViewModel.email = "email"
-        signUpViewModel.password = "123"
+    fun signUp_goToHomeIfSuccefullySignUp() = runBlockingTest {
+        signUpViewModel.name = name
+        signUpViewModel.email = email
+        signUpViewModel.password = password
+
+        whenever(repository.signUp(SignUp(name, email, password)))
+            .thenReturn(Result.Success(Token(token)))
 
         signUpViewModel.signUp()
 
@@ -46,18 +70,26 @@ class SignUpViewModelTest {
     }
 
     @Test
-    fun signUp_showErrorIfSomeErrorOccurredWhenTryingToSignUp() {
-        signUpViewModel.name = "Felipe"
-        signUpViewModel.email = "email"
-        signUpViewModel.password = "123"
+    fun signUp_showErrorIfSomeErrorOccurredWhenTryingToSignUp() = runBlockingTest {
+        signUpViewModel.name = name
+        signUpViewModel.email = email
+        signUpViewModel.password = password
 
-        fakeSignUpUseCase.updateShowErrorForTesting(true)
+        whenever(repository.signUp(SignUp(name, email, password)))
+            .thenReturn(Result.Error(ErrorEntity.Network))
 
         signUpViewModel.signUp()
 
         val result = signUpViewModel.errorMessageLiveData.getOrAwaitValue()
 
         assertEquals(true, !result.isNullOrEmpty())
+    }
+
+    companion object {
+        private const val name = "Felipe"
+        private const val email = "email"
+        private const val password = "123"
+        private const val token = "123"
     }
 
 }

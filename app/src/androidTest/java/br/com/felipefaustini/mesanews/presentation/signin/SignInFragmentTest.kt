@@ -12,15 +12,16 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import br.com.felipefaustini.mesanews.R
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
+@ExperimentalCoroutinesApi
 class SignInFragmentTest: KoinTest {
 
     private lateinit var scenario: FragmentScenario<SignInFragment>
@@ -37,6 +38,10 @@ class SignInFragmentTest: KoinTest {
 
     @Test
     fun clickSignIn_performSignInAction() {
+        scenario.onFragment {
+            Navigation.setViewNavController(it.view!!, navController)
+        }
+
         onView(withId(R.id.input_email))
             .perform(typeText("felipefaustini@email.com"))
         onView(withId(R.id.input_password))

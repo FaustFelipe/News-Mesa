@@ -4,6 +4,7 @@ import br.com.felipefaustini.domain.models.SignIn
 import br.com.felipefaustini.domain.models.Token
 import br.com.felipefaustini.domain.repository.NewsRepository
 import br.com.felipefaustini.domain.usecases.signin.SignInUseCase
+import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,38 +34,52 @@ class SignInUseCaseTest {
 
     @Test
     fun signIn_returnSuccessToken() = runBlockingTest {
-        val expected = Result.Success(Token("123"))
-        val email = "email"
-        val password = "123"
+        val expected = Result.Success(Token(token))
         val signIn = SignIn(email, password)
 
         whenever(repository.signIn(signIn))
-            .thenReturn(Result.Success(Token(token = "123")))
+            .thenReturn(Result.Success(Token(token = token)))
 
         val result = useCase.signIn(email, password)
 
-        verify(repository).saveToken(Token(token = "123"))
+        verify(repository).saveToken(Token(token = token))
         verify(repository).signIn(signIn)
         verifyNoMoreInteractions(repository)
         assertEquals(expected, result)
     }
 
     @Test
-    fun signIn_returnError() = runBlockingTest {
-        val error = Exception("Connection Error")
-        val expected = Result.Error(error.message, error)
-        val email = "email"
-        val password = "123"
+    fun signIn_returnNotFoundError() = runBlockingTest {
         val signIn = SignIn(email, password)
 
         whenever(repository.signIn(signIn))
-            .thenReturn(Result.Error(error.message, error))
+            .thenReturn(Result.Error(ErrorEntity.NotFound))
 
         val result = useCase.signIn(email, password)
 
         verify(repository).signIn(signIn)
         verifyNoMoreInteractions(repository)
-        assertEquals(expected, result)
+        assertEquals(Result.Error(ErrorEntity.NotFound), result)
+    }
+
+    @Test
+    fun signIn_returnNetworkError() = runBlockingTest {
+        val signIn = SignIn(email, password)
+
+        whenever(repository.signIn(signIn))
+            .thenReturn(Result.Error(ErrorEntity.Network))
+
+        val result = useCase.signIn(email, password)
+
+        verify(repository).signIn(signIn)
+        verifyNoMoreInteractions(repository)
+        assertEquals(Result.Error(ErrorEntity.Network), result)
+    }
+
+    companion object {
+        private val token = "123"
+        private val email = "email"
+        private val password = "123"
     }
 
 }

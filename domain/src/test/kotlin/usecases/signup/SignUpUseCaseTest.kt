@@ -4,6 +4,7 @@ import br.com.felipefaustini.domain.models.SignUp
 import br.com.felipefaustini.domain.models.Token
 import br.com.felipefaustini.domain.repository.NewsRepository
 import br.com.felipefaustini.domain.usecases.signup.SignUpUseCase
+import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,9 +35,7 @@ class SignUpUseCaseTest {
     @Test
     fun signUp_returnSuccessToken() = runBlockingTest {
         val expected = Result.Success(Token("123"))
-        val name = "Felipe"
-        val email = "email"
-        val password = "123"
+
         val signUp = SignUp(name, email, password)
 
         whenever(repository.signUp(signUp))
@@ -51,22 +50,41 @@ class SignUpUseCaseTest {
     }
 
     @Test
-    fun signUp_returnError() = runBlockingTest {
-        val error = Exception("Connection Error")
-        val expected = Result.Error(error.message, error)
-        val name = "Felipe"
-        val email = "email"
-        val password = "123"
+    fun signUp_returnNetworkError() = runBlockingTest {
+        val expected = Result.Error(ErrorEntity.Network)
+
         val signUp = SignUp(name, email, password)
 
         whenever(repository.signUp(signUp))
-            .thenReturn(Result.Error(error.message, error))
+            .thenReturn(Result.Error(ErrorEntity.Network))
 
         val result = useCase.signUp(name, email, password)
 
         verify(repository).signUp(signUp)
         verifyNoMoreInteractions(repository)
         assertEquals(expected, result)
+    }
+
+    @Test
+    fun signUp_returnNotFoundError() = runBlockingTest {
+        val expected = Result.Error(ErrorEntity.NotFound)
+
+        val signUp = SignUp(name, email, password)
+
+        whenever(repository.signUp(signUp))
+            .thenReturn(Result.Error(ErrorEntity.NotFound))
+
+        val result = useCase.signUp(name, email, password)
+
+        verify(repository).signUp(signUp)
+        verifyNoMoreInteractions(repository)
+        assertEquals(expected, result)
+    }
+
+    companion object {
+        private val name = "Felipe"
+        private val email = "email"
+        private val password = "123"
     }
 
 }

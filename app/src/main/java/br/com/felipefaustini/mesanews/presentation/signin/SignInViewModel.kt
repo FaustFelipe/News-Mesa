@@ -1,15 +1,12 @@
 package br.com.felipefaustini.mesanews.presentation.signin
 
-import androidx.lifecycle.viewModelScope
-import br.com.felipefaustini.domain.usecases.signin.ISignInUseCase
+import br.com.felipefaustini.domain.usecases.signin.SignInUseCase
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.mesanews.presentation.BaseViewModel
 import br.com.felipefaustini.mesanews.utils.EventLiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class SignInViewModel(
-    private val useCase: ISignInUseCase
+    private val useCase: SignInUseCase
 ): BaseViewModel() {
 
     var email: String = ""
@@ -23,17 +20,15 @@ class SignInViewModel(
 
     fun signIn() {
         if (email.isNotEmpty() && password.isNotEmpty()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                _loadingLiveData.postValue(true)
+            launchDataLoad {
                 when(val result = useCase.signIn(email, password)) {
                     is Result.Success -> {
                         _signInGoHomeLiveData.postValue(Unit)
                     }
                     is Result.Error -> {
-                        _errorMessageLiveData.postValue(result.message ?: "")
+                        _errorMessageLiveData.postValue("Erro")
                     }
                 }
-                _loadingLiveData.postValue(false)
             }
         } else {
             _signInErrorFieldsLiveData.postValue(Unit)

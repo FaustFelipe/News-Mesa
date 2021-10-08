@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import br.com.felipefaustini.core.models.mappers.SignInMapper
 import br.com.felipefaustini.core.api.NewsApi
 import br.com.felipefaustini.core.models.mappers.SignUpMapper
+import br.com.felipefaustini.core.utils.handleApiCodeException
 import br.com.felipefaustini.core.utils.safeCall
 import br.com.felipefaustini.domain.repository.NewsRepository
 import br.com.felipefaustini.domain.utils.Result
@@ -22,6 +23,9 @@ class NewsRepositoryImpl(
         val request = SignInMapper.map(signIn)
         val response = api.postSignIn(request)
         val headers = response.headers()
+        if (!response.isSuccessful) {
+            return@safeCall handleApiCodeException(response.code())
+        }
         val data = response.body()!!
         Result.Success(Token(token = data.token))
     }
@@ -30,6 +34,9 @@ class NewsRepositoryImpl(
         val request = SignUpMapper.map(signUp)
         val response = api.postSignUp(request)
         val headers = response.headers()
+        if (!response.isSuccessful) {
+            return@safeCall handleApiCodeException(response.code())
+        }
         val data = response.body()!!
         Result.Success(Token(token = data.token))
     }
