@@ -10,9 +10,7 @@ import kotlinx.coroutines.launch
 
 open class BaseViewModel: ViewModel() {
 
-    protected val _loadingLiveData = MutableLiveData<Boolean>().apply {
-        value = false
-    }
+    protected val _loadingLiveData = MutableLiveData<Boolean>(false)
     val loadingLiveData: LiveData<Boolean> = _loadingLiveData
 
     protected val _errorMessageLiveData = EventLiveData<String>()

@@ -36,60 +36,61 @@ class SignInViewModelTest {
      */
 
 
+    @ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
     @get:Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
+    var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     private lateinit var repository: NewsRepository
 
     private lateinit var signInUseCase: SignInUseCase
 
-    private lateinit var signInViewModule: SignInViewModel
+    private lateinit var signInViewModel: SignInViewModel
 
     @Before
     fun beforeEachTest() {
         signInUseCase = SignInUseCase(repository)
-        signInViewModule = SignInViewModel(signInUseCase)
+        signInViewModel = SignInViewModel(signInUseCase)
     }
 
     @Test
     fun signIn_showErrorWhenEmailOrPasswordIfNotFilled() {
-        signInViewModule.signIn()
+        signInViewModel.signIn()
 
-        val result = signInViewModule.signInErrorFieldsLiveData.getOrAwaitValue()
+        val result = signInViewModel.signInErrorFieldsLiveData.getOrAwaitValue()
 
         assertEquals(Unit, result)
     }
 
     @Test
     fun signIn_goToHomeIfSuccefullyLoggedIn() = runBlockingTest {
-        signInViewModule.email = email
-        signInViewModule.password = password
+        signInViewModel.email = email
+        signInViewModel.password = password
 
         whenever(repository.signIn(SignIn(email, password)))
             .thenReturn(Result.Success(Token(token)))
 
-        signInViewModule.signIn()
+        signInViewModel.signIn()
 
-        val result = signInViewModule.signInGoHomeLiveData.getOrAwaitValue()
+        val result = signInViewModel.signInGoHomeLiveData.getOrAwaitValue()
 
         assertEquals(Unit, result)
     }
 
     @Test
     fun signIn_showErrorIfSomeErrorOccurredWhenTryingToSignIn() = runBlockingTest {
-        signInViewModule.email = email
-        signInViewModule.password = password
+        signInViewModel.email = email
+        signInViewModel.password = password
 
         whenever(repository.signIn(SignIn(email, password)))
             .thenReturn(Result.Error(ErrorEntity.Network))
 
-        signInViewModule.signIn()
+        signInViewModel.signIn()
 
-        val result = signInViewModule.errorMessageLiveData.getOrAwaitValue()
+        val result = signInViewModel.errorMessageLiveData.getOrAwaitValue()
 
         assertEquals(true, !result.isNullOrEmpty())
     }

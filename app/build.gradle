@@ -79,7 +79,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$arch_lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_lifecycle_version"
 
 }

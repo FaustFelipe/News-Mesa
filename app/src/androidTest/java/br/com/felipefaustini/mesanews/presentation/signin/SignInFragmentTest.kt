@@ -13,41 +13,40 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import br.com.felipefaustini.mesanews.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @ExperimentalCoroutinesApi
-class SignInFragmentTest: KoinTest {
+class SignInFragmentTest {
 
     private lateinit var scenario: FragmentScenario<SignInFragment>
     private lateinit var navController: NavController
 
-    @Before
-    fun beforeEachTest() {
+    @Test
+    fun clickSignIn_performSignInAction() {
         scenario = launchFragmentInContainer<SignInFragment>(
             null,
             R.style.Toolkit_Theme_MesaNews
         )
         navController = mock(NavController::class.java)
-    }
 
-    @Test
-    fun clickSignIn_performSignInAction() {
         scenario.onFragment {
             Navigation.setViewNavController(it.view!!, navController)
         }
 
         onView(withId(R.id.input_email))
-            .perform(typeText("felipefaustini@email.com"))
+            .perform(typeText("felipe.faustini@mesainc.com.br"))
         onView(withId(R.id.input_password))
             .perform(typeText("123456"), closeSoftKeyboard())
         onView(withId(R.id.btn_sign_in)).perform(click())
         onView(withId(R.id.container_loading)).check(matches(isDisplayed()))
+
+//        verify(navController).navigate(R.id.action_signInFragment_to_homeFragment)
     }
 
 }

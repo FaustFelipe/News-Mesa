@@ -10,7 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import br.com.felipefaustini.mesanews.R
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
@@ -23,18 +22,14 @@ class OnboardingFragmentTest {
     private lateinit var scenario: FragmentScenario<OnboardingFragment>
     private lateinit var navController: NavController
 
-    @Before
-    fun beforeEachTest() {
+    @Test
+    fun clickSignIn_navigateToSignInFragment() {
+        // GIVEN - On the onboarding screen
         scenario = launchFragmentInContainer<OnboardingFragment>(
             null,
             R.style.Toolkit_Theme_MesaNews
         )
         navController = mock(NavController::class.java)
-    }
-
-    @Test
-    fun clickSignIn_navigateToSignInFragment() {
-        // GIVEN - On the onboarding screen
 
         val resId = R.id.action_splashFragment_to_signInFragment
         scenario.onFragment {
@@ -55,6 +50,12 @@ class OnboardingFragmentTest {
     @Test
     fun clickSignUp_navigateToSignUpFragment() {
         // GIVEN - On the onboarding screen
+        scenario = launchFragmentInContainer<OnboardingFragment>(
+            null,
+            R.style.Toolkit_Theme_MesaNews
+        )
+        navController = mock(NavController::class.java)
+
         val resId = R.id.action_splashFragment_to_signUpFragment
         scenario.onFragment {
             Navigation.setViewNavController(it.view!!, navController)

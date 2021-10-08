@@ -11,8 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import br.com.felipefaustini.mesanews.R
-import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
@@ -24,17 +22,14 @@ class SignUpFragmentTest {
     private lateinit var scenario: FragmentScenario<SignUpFragment>
     private lateinit var navController: NavController
 
-    @Before
-    fun beforeEachTest() {
+    @Test
+    fun clickSignUp_performSignUpAction() {
         scenario = launchFragmentInContainer(
             null,
             R.style.Toolkit_Theme_MesaNews
         )
         navController = mock(NavController::class.java)
-    }
 
-    @Test
-    fun clickSignUp_performSignUpAction() {
         onView(withId(R.id.input_name)).perform(typeText("Felipe"))
         onView(withId(R.id.input_email)).perform(typeText("felipefaustini@email.com"))
         onView(withId(R.id.input_password))
