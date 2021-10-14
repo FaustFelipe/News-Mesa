@@ -1,22 +1,21 @@
 package br.com.felipefaustini.core.repository
 
-import android.content.SharedPreferences
-import br.com.felipefaustini.core.models.mappers.SignInMapper
 import br.com.felipefaustini.core.api.NewsApi
+import br.com.felipefaustini.core.models.mappers.SignInMapper
 import br.com.felipefaustini.core.models.mappers.SignUpMapper
+import br.com.felipefaustini.core.preferences.PreferencesManager
 import br.com.felipefaustini.core.utils.handleApiCodeException
 import br.com.felipefaustini.core.utils.safeCall
-import br.com.felipefaustini.domain.repository.NewsRepository
-import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.domain.models.SignIn
 import br.com.felipefaustini.domain.models.SignUp
 import br.com.felipefaustini.domain.models.Token
+import br.com.felipefaustini.domain.repository.NewsRepository
+import br.com.felipefaustini.domain.utils.Result
 import kotlin.coroutines.CoroutineContext
 
 class NewsRepositoryImpl(
     private val api: NewsApi,
-    private val coroutineContext: CoroutineContext,
-    private val sharedPreferences: SharedPreferences
+    private val coroutineContext: CoroutineContext
 ): NewsRepository {
 
     override suspend fun signIn(signIn: SignIn): Result<Token> = safeCall(coroutineContext) {
@@ -41,15 +40,12 @@ class NewsRepositoryImpl(
         Result.Success(Token(token = data.token))
     }
 
-    override suspend fun saveToken(token: Token) {
-        sharedPreferences
-            .edit()
-            .putString(TOKEN_PARAM, token.token)
-            .apply()
+    override fun saveToken(token: Token) {
+        PreferencesManager.saveToken(token.token)
     }
 
-    companion object {
-        private const val TOKEN_PARAM = "tokenParam"
+    override fun getToken(): String {
+        return PreferencesManager.getToken()
     }
 
 }
