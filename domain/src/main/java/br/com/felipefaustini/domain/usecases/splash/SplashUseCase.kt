@@ -4,9 +4,9 @@ import br.com.felipefaustini.domain.repository.NewsRepository
 
 class SplashUseCase(
     private val repository: NewsRepository
-) {
+): ISplashUseCase {
 
-    fun isUserSignedIn(): Boolean {
+    override fun isUserSignedIn(): Boolean {
         return repository.isUserSidnedIn()
     }
 

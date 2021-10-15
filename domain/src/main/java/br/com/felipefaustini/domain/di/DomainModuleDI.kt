@@ -4,11 +4,12 @@ import br.com.felipefaustini.domain.usecases.signin.ISignInUseCase
 import br.com.felipefaustini.domain.usecases.signin.SignInUseCase
 import br.com.felipefaustini.domain.usecases.signup.ISignUpUseCase
 import br.com.felipefaustini.domain.usecases.signup.SignUpUseCase
+import br.com.felipefaustini.domain.usecases.splash.ISplashUseCase
 import br.com.felipefaustini.domain.usecases.splash.SplashUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
     single<ISignInUseCase> { SignInUseCase(repository = get()) }
     single<ISignUpUseCase> { SignUpUseCase(repository = get()) }
-    single { SplashUseCase(repository = get()) }
+    single<ISplashUseCase> { SplashUseCase(repository = get()) }
 }

@@ -1,12 +1,12 @@
 package br.com.felipefaustini.mesanews.presentation.splash
 
 import androidx.lifecycle.LiveData
-import br.com.felipefaustini.domain.usecases.splash.SplashUseCase
+import br.com.felipefaustini.domain.usecases.splash.ISplashUseCase
 import br.com.felipefaustini.mesanews.presentation.BaseViewModel
 import br.com.felipefaustini.mesanews.utils.EventLiveData
 
 class SplashViewModel(
-    private val useCase: SplashUseCase
+    private val useCase: ISplashUseCase
 ): BaseViewModel() {
 
     private val _navigateToOnboarding = EventLiveData<Unit>()
