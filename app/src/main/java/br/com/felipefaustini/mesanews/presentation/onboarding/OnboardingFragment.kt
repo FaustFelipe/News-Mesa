@@ -12,12 +12,12 @@ class OnboardingFragment: BaseFragment(R.layout.fragment_onboarding) {
 
     override fun setupActions() {
         btn_sign_in.setOnClickListener {
-            navigate(R.id.action_splashFragment_to_signInFragment)
+            navigate(R.id.action_onboardingFragment_to_signInFragment)
         }
 
         btn_create_account.setOnClickListener {
             navigate(
-                R.id.action_splashFragment_to_signUpFragment,
+                R.id.action_onboardingFragment_to_signUpFragment,
                 enterFrom = NavigateEnterAnimFrom.BOTTOM
             )
         }

@@ -7,9 +7,9 @@ import br.com.felipefaustini.domain.utils.Result
 
 class SignInUseCase(
     private val repository: NewsRepository
-) {
+): ISignInUseCase {
 
-    suspend fun signIn(email: String, password: String): Result<Token> {
+    override suspend fun signIn(email: String, password: String): Result<Token> {
         val signIn = SignIn(email, password)
         val response = repository.signIn(signIn)
         if (response is Result.Success) {

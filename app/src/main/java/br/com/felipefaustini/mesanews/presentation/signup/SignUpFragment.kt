@@ -44,6 +44,14 @@ class SignUpFragment: BaseFragment(R.layout.fragment_signup) {
             container_loading.showOrGoneInCondition(it)
             blockUserInteraction(it)
         }
+
+        signUpViewModel.errorMessageLiveData.observe(viewLifecycleOwner) {
+            println("Erro")
+        }
+
+        signUpViewModel.signUpGoHomeLiveData.observe(viewLifecycleOwner) {
+            navigate(R.id.action_signUpFragment_to_homeFragment)
+        }
     }
 
 }

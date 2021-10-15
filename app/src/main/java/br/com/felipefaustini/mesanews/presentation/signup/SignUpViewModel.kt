@@ -1,12 +1,13 @@
 package br.com.felipefaustini.mesanews.presentation.signup
 
+import br.com.felipefaustini.domain.usecases.signup.ISignUpUseCase
 import br.com.felipefaustini.domain.usecases.signup.SignUpUseCase
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.mesanews.presentation.BaseViewModel
 import br.com.felipefaustini.mesanews.utils.EventLiveData
 
 class SignUpViewModel(
-    private val useCase: SignUpUseCase
+    private val useCase: ISignUpUseCase
 ): BaseViewModel() {
 
     var name: String = ""

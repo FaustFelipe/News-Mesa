@@ -33,6 +33,10 @@ class SignInFragment: BaseFragment(R.layout.fragment_signin) {
         btn_sign_in.setOnClickListener {
             signInViewModel.signIn()
         }
+
+        btn_create_account.setOnClickListener {
+            navigate(R.id.action_signInFragment_to_signUpFragment)
+        }
     }
 
     override fun setupObservables() {

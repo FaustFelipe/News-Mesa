@@ -10,4 +10,5 @@ interface NewsRepository {
     suspend fun signUp(signUp: SignUp): Result<Token>
     fun saveToken(token: Token)
     fun getToken(): String
+    fun isUserSidnedIn(): Boolean
 }
