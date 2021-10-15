@@ -8,7 +8,7 @@ class MainHeaderInterceptor: Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val token = PreferencesManager.getToken()
-        return chain
+        val response = chain
             .proceed(
                 chain
                     .request()
@@ -16,10 +16,14 @@ class MainHeaderInterceptor: Interceptor {
                     .apply {
                         addHeader("Content-Type", "application/json")
                         if (token.isNotEmpty()) {
-                            addHeader("Access-Token", token)
+                            addHeader("Authorization", "Bearer $token")
                         }
                     }.build()
             )
+        if (response.code == 401) {
+            // TODO Invalid token, try to relogin or redirect to sign in
+        }
+        return response
     }
 
 }

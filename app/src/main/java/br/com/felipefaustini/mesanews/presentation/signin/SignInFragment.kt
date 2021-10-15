@@ -14,7 +14,7 @@ class SignInFragment: BaseFragment(R.layout.fragment_signin) {
     private val signInViewModel: SignInViewModel by viewModel()
     
     override fun setupViews() {
-
+        setupToolbarWithCloseButton()
     }
 
     override fun getToolbar(): Toolbar? {

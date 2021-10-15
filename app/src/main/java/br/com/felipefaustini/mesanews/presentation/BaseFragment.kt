@@ -1,10 +1,13 @@
 package br.com.felipefaustini.mesanews.presentation
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -13,20 +16,28 @@ import androidx.navigation.fragment.findNavController
 import br.com.felipefaustini.mesanews.R
 
 abstract class BaseFragment(
-    @LayoutRes layoutRes: Int = 0
+    @LayoutRes layoutRes: Int = 0,
+    @MenuRes private val menuResId: Int = 0
 ): Fragment(layoutRes) {
 
     private var toolbar: Toolbar? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (menuResId != 0) setHasOptionsMenu(true)
         setupViews()
-        setupToolbar()
         setupActions()
         setupObservables()
     }
 
     protected open fun setupToolbar() {
+        toolbar = getToolbar()
+        toolbar?.apply {
+            (activity as? AppCompatActivity)?.setSupportActionBar(this)
+        }
+    }
+
+    protected open fun setupToolbarWithCloseButton() {
         toolbar = getToolbar()
         toolbar?.apply {
             (activity as? AppCompatActivity)?.setSupportActionBar(this)
@@ -38,6 +49,14 @@ abstract class BaseFragment(
             setNavigationOnClickListener {
                 requireActivity().onBackPressed()
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (menuResId != 0) {
+            inflater.inflate(menuResId, menu)
+        } else {
+            super.onCreateOptionsMenu(menu, inflater)
         }
     }
 

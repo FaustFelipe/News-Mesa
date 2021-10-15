@@ -1,8 +1,12 @@
 package br.com.felipefaustini.core.repository
 
 import br.com.felipefaustini.core.api.NewsApi
+import br.com.felipefaustini.core.models.mappers.NewsMapper
 import br.com.felipefaustini.core.models.request.SignInRequest
 import br.com.felipefaustini.core.models.request.SignUpRequest
+import br.com.felipefaustini.core.models.response.NewsResponse
+import br.com.felipefaustini.core.models.response.NewsResponseData
+import br.com.felipefaustini.core.models.response.PaginationResponse
 import br.com.felipefaustini.core.models.response.TokenResponse
 import br.com.felipefaustini.domain.models.SignIn
 import br.com.felipefaustini.domain.models.SignUp
@@ -241,6 +245,20 @@ class NewsRepositoryImplTest {
         assertEquals(Result.Error(ErrorEntity.Unknown), response)
     }
 
+    @Test
+    fun getNews_shouldReturnValidNews() = runBlockingTest {
+        val expected = Result.Success(
+            validNewsResponse.data?.map { NewsMapper.map(it) } ?: emptyList()
+        )
+        whenever(newsApi.getNews())
+            .thenReturn(Response.success(validNewsResponse))
+
+        val response = repository.getNews()
+
+        verify(newsApi).getNews()
+        assertEquals(expected, response)
+    }
+
     companion object {
         private val name = "felipe"
         private val email = "felipe.faustini@email.com"
@@ -248,6 +266,21 @@ class NewsRepositoryImplTest {
         private val token = "123"
         private val errorResponseBody =
             "{\"errors\":[{\"code\":\"BLANK\",\"field\":\"password\",\"message\":\"Password can't be blank\"}]}"
+        private val validNewsResponse = NewsResponse(
+            pagination = PaginationResponse(1, 1, 1, 1),
+            data = listOf(
+                NewsResponseData(
+                    title = "Title",
+                    description = "Description",
+                    content = "Content",
+                    author = "Felipe",
+                    published_at = null,
+                    highlight = false,
+                    url = null,
+                    image_url = null
+                )
+            )
+        )
     }
 
 }

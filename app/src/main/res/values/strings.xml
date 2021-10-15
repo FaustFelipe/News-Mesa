@@ -14,5 +14,10 @@
     <string name="singin_email">Entrar com e-mail</string>
     <string name="singin_dont_have_account">Não tenho conta. Cadastrar</string>
     <!-- endregion signin -->
+    
+    <!-- region home -->
+    <string name="home_title">Mesa News</string>
+    <string name="home_filter">Filtrar</string>
+    <!-- endregion home -->
 
 </resources>
