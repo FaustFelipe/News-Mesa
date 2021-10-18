@@ -1,6 +1,9 @@
 package br.com.felipefaustini.mesanews.utils.extensions
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 
 fun View.makeVisible() {
     visibility = View.VISIBLE
@@ -17,4 +20,8 @@ fun View.makeInvisible() {
 fun View.showOrGoneInCondition(condition: Boolean) {
     if (condition) makeVisible()
     else makeGone()
+}
+
+fun ViewGroup.inflate(@LayoutRes viewId: Int, attatchToRoot: Boolean = false): View {
+    return LayoutInflater.from(this.context).inflate(viewId, this, attatchToRoot)
 }

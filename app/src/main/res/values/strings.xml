@@ -18,6 +18,8 @@
     <!-- region home -->
     <string name="home_title">Mesa News</string>
     <string name="home_filter">Filtrar</string>
+    <string name="home_highlights">Destaques</string>
+    <string name="home_latest_news">Últimas notícias</string>
     <!-- endregion home -->
 
 </resources>

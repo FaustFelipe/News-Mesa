@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/toolkit_dimen16"
+    android:paddingTop="@dimen/toolkit_dimen24"
+    android:paddingBottom="@dimen/toolkit_dimen8">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem"
+        android:textAppearance="@style/Toolkit.Text.Roboto.Bold.18sp"
+        android:textColor="@color/toolkit_black" />
+
+</FrameLayout>
