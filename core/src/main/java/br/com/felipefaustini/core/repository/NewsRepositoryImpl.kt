@@ -42,6 +42,16 @@ class NewsRepositoryImpl(
         Result.Success(Token(token = data.token))
     }
 
+    override suspend fun getHighlights(): Result<List<News>> = safeCall(coroutineContext) {
+        val response = api.getHighlights()
+        val headers = response.headers()
+        if (!response.isSuccessful) {
+            return@safeCall handleApiCodeException(response.code())
+        }
+        val data = response.body()!!
+        Result.Success(data.data?.map { NewsMapper.map(it) } ?: emptyList())
+    }
+
     override suspend fun getNews(): Result<List<News>> = safeCall(coroutineContext) {
         val response = api.getNews()
         val headers = response.headers()

@@ -21,6 +21,11 @@ interface NewsApi {
         @Body signUpRequest: SignUpRequest
     ): Response<TokenResponse>
 
+    @GET("v1/client/news/highlights")
+    suspend fun getHighlights(
+
+    ): Response<NewsResponse>
+
     @GET("v1/client/news")
     suspend fun getNews(
 

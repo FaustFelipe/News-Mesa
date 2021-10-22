@@ -10,4 +10,5 @@
     <color name="toolkit_black_50">#80000000</color>
     <color name="toolkit_stratos">#010A53</color>
     <color name="toolkit_white">#FFFFFFFF</color>
+    <color name="toolkit_alto">#D3D3D3</color>
 </resources>

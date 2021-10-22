@@ -96,6 +96,10 @@
     <item name="android:textSize">@dimen/toolkit_textSize12</item>
   </style>
 
+  <style name="Toolkit.Text.Roboto.Bold.16sp">
+    <item name="android:textSize">@dimen/toolkit_textSize16</item>
+  </style>
+
   <style name="Toolkit.Text.Roboto.Bold.18sp">
     <item name="android:textSize">@dimen/toolkit_textSize18</item>
   </style>

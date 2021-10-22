@@ -1,9 +1,7 @@
 package br.com.felipefaustini.mesanews.presentation.signup
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import br.com.felipefaustini.domain.models.SignUp
 import br.com.felipefaustini.domain.models.Token
-import br.com.felipefaustini.domain.repository.NewsRepository
 import br.com.felipefaustini.domain.usecases.signup.SignUpUseCase
 import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
@@ -12,10 +10,10 @@ import br.com.felipefaustini.mesanews.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
@@ -31,18 +29,10 @@ class SignUpViewModelTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: NewsRepository
-
     private lateinit var signUpUseCase: SignUpUseCase
 
+    @InjectMocks
     private lateinit var signUpViewModel: SignUpViewModel
-
-    @Before
-    fun setupDispatcher() {
-        signUpUseCase = SignUpUseCase(repository)
-
-        signUpViewModel = SignUpViewModel(signUpUseCase)
-    }
 
     @Test
     fun signUp_returnFieldsEmptyError() {
@@ -59,7 +49,7 @@ class SignUpViewModelTest {
         signUpViewModel.email = email
         signUpViewModel.password = password
 
-        whenever(repository.signUp(SignUp(name, email, password)))
+        whenever(signUpUseCase.signUp(name, email, password))
             .thenReturn(Result.Success(Token(token)))
 
         signUpViewModel.signUp()
@@ -75,7 +65,7 @@ class SignUpViewModelTest {
         signUpViewModel.email = email
         signUpViewModel.password = password
 
-        whenever(repository.signUp(SignUp(name, email, password)))
+        whenever(signUpUseCase.signUp(name, email, password))
             .thenReturn(Result.Error(ErrorEntity.Network))
 
         signUpViewModel.signUp()

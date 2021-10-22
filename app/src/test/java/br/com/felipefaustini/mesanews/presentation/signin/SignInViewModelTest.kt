@@ -1,9 +1,7 @@
 package br.com.felipefaustini.mesanews.presentation.signin
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import br.com.felipefaustini.domain.models.SignIn
 import br.com.felipefaustini.domain.models.Token
-import br.com.felipefaustini.domain.repository.NewsRepository
 import br.com.felipefaustini.domain.usecases.signin.SignInUseCase
 import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
@@ -11,11 +9,11 @@ import br.com.felipefaustini.mesanews.MainCoroutineRule
 import br.com.felipefaustini.mesanews.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert.*
-import org.junit.Before
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
@@ -44,17 +42,10 @@ class SignInViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: NewsRepository
-
     private lateinit var signInUseCase: SignInUseCase
 
+    @InjectMocks
     private lateinit var signInViewModel: SignInViewModel
-
-    @Before
-    fun beforeEachTest() {
-        signInUseCase = SignInUseCase(repository)
-        signInViewModel = SignInViewModel(signInUseCase)
-    }
 
     @Test
     fun signIn_showErrorWhenEmailOrPasswordIfNotFilled() {
@@ -70,7 +61,7 @@ class SignInViewModelTest {
         signInViewModel.email = email
         signInViewModel.password = password
 
-        whenever(repository.signIn(SignIn(email, password)))
+        whenever(signInUseCase.signIn(email, password))
             .thenReturn(Result.Success(Token(token)))
 
         signInViewModel.signIn()
@@ -85,7 +76,7 @@ class SignInViewModelTest {
         signInViewModel.email = email
         signInViewModel.password = password
 
-        whenever(repository.signIn(SignIn(email, password)))
+        whenever(signInUseCase.signIn(email, password))
             .thenReturn(Result.Error(ErrorEntity.Network))
 
         signInViewModel.signIn()

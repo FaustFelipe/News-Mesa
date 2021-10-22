@@ -15,6 +15,7 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_version"
+    testImplementation "org.hamcrest:hamcrest:$hamcrest_version"
 
     // Koin
     implementation "org.koin:koin-android:$koin_version"

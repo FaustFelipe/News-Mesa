@@ -15,6 +15,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
@@ -31,23 +32,16 @@ class HomeViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: NewsRepository
-
     private lateinit var homeUseCase: HomeUseCase
 
+    @InjectMocks
     private lateinit var homeViewModel: HomeViewModel
-
-    @Before
-    fun beforeEachTest() {
-        homeUseCase = HomeUseCase(repository)
-        homeViewModel = HomeViewModel(homeUseCase)
-    }
 
     @Test
     fun listNews_shouldMakeNewsRequestAndReturnListOfNews() = runBlockingTest {
         val expected = listOf<News>(NEWS)
 
-        whenever(repository.getNews())
+        whenever(homeUseCase.getNews())
             .thenReturn(Result.Success(listOf(NEWS)))
 
         homeViewModel.listNews()
@@ -61,10 +55,38 @@ class HomeViewModelTest {
     fun listNews_shouldMakeNewsRequestAndShowError() = runBlockingTest {
         val expected = "Erro"
 
-        whenever(repository.getNews())
+        whenever(homeUseCase.getNews())
             .thenReturn(Result.Error(ErrorEntity.Unknown))
 
         homeViewModel.listNews()
+
+        val result = homeViewModel.errorMessageLiveData.getOrAwaitValue()
+
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun listHighlights_shouldMakeHighlightsRequestAndReturnListOfNews() = runBlockingTest {
+        val expected = listOf<News>(NEWS)
+
+        whenever(homeUseCase.getHighlights())
+            .thenReturn(Result.Success(listOf(NEWS)))
+
+        homeViewModel.listHighlights()
+
+        val result = homeViewModel.listHighlightsLiveData.getOrAwaitValue()
+
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun listHighlights_shouldMakeHighlightsRequestAndShowError() = runBlockingTest {
+        val expected = "Erro"
+
+        whenever(homeUseCase.getHighlights())
+            .thenReturn(Result.Error(ErrorEntity.Unknown))
+
+        homeViewModel.listHighlights()
 
         val result = homeViewModel.errorMessageLiveData.getOrAwaitValue()
 

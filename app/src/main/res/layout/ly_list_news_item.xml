@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:layout_marginHorizontal="@dimen/toolkit_dimen16">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_news"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolkit_dimen160"
+        app:shapeAppearanceOverlay="@style/Toolkit.ImageView.RoundedCorner.12"
+        tools:src="@tools:sample/avatars"
+        android:layout_marginTop="@dimen/toolkit_dimen16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_bookmark_news"
+        android:layout_width="@dimen/toolkit_dimen40"
+        android:layout_height="@dimen/toolkit_dimen40"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_news"
+        android:src="@drawable/ic_bookmark_border_black_24"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginTop="@dimen/toolkit_dimen8"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_date_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem"
+        android:textAppearance="@style/Toolkit.Text.Roboto.12sp"
+        android:textColor="@color/toolkit_black"
+        app:layout_constraintTop_toTopOf="@+id/btn_bookmark_news"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_bookmark_news"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_title"
+        android:layout_width="@dimen/toolkit_dimen0"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem"
+        android:textAppearance="@style/Toolkit.Text.Roboto.Bold.16sp"
+        android:layout_marginTop="@dimen/toolkit_dimen12"
+        android:textColor="@color/toolkit_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_bookmark_news"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_desc"
+        android:layout_width="@dimen/toolkit_dimen0"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem"
+        android:textAppearance="@style/Toolkit.Text.Roboto.14sp"
+        android:textColor="@color/toolkit_black"
+        android:layout_marginTop="@dimen/toolkit_dimen8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/toolkit_dimen16"
+        android:background="@color/toolkit_alto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_desc"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

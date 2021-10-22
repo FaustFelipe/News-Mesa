@@ -31,6 +31,20 @@ class HomeUseCaseTest {
     }
 
     @Test
+    fun getHighlights_returnListOfHighlights() = runBlockingTest {
+        val expected = Result.Success(listOf(NEWS))
+
+        whenever(repository.getHighlights())
+            .thenReturn(Result.Success(listOf(NEWS)))
+
+        val result = useCase.getHighlights()
+
+        verify(repository).getHighlights()
+        verifyNoMoreInteractions(repository)
+        assertEquals(expected, result)
+    }
+
+    @Test
     fun getNews_returnListOfNews() = runBlockingTest {
         val expected = Result.Success(listOf(NEWS))
 

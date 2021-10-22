@@ -47,4 +47,11 @@
     </style>
     <!-- endregion buttons -->
 
+    <!-- region ImageView -->
+    <style name="Toolkit.ImageView.RoundedCorner.12" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/toolkit_dimen12</item>
+    </style>
+    <!-- endregion ImageView -->
+
 </resources>

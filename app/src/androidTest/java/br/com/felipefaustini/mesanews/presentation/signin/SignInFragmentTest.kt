@@ -5,6 +5,7 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -17,6 +18,7 @@ import br.com.felipefaustini.domain.repository.NewsRepository
 import br.com.felipefaustini.domain.usecases.signin.ISignInUseCase
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.mesanews.R
+import br.com.felipefaustini.mesanews.utils.IdleResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -78,6 +80,8 @@ class SignInFragmentTest: KoinTest {
         onView(withId(R.id.input_password)).perform(typeText(PASSWORD), closeSoftKeyboard())
         onView(withId(R.id.btn_sign_in)).perform(click())
         onView(withId(R.id.container_loading)).check(matches(isDisplayed()))
+
+        IdlingRegistry.getInstance().register(IdleResource.instanceSignIn)
 
         verify(navController, timeout(TIMEOUT))
             .navigate(R.id.action_signInFragment_to_homeFragment, null)

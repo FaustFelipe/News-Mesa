@@ -259,6 +259,21 @@ class NewsRepositoryImplTest {
         assertEquals(expected, response)
     }
 
+    @Test
+    fun getHighlights_shouldReturnValidHighlights() = runBlockingTest {
+        val expected = Result.Success(
+            validHighlightsResponse.data?.map { NewsMapper.map(it) } ?: emptyList()
+        )
+
+        whenever(newsApi.getHighlights())
+            .thenReturn(Response.success(validHighlightsResponse))
+
+        val response = repository.getHighlights()
+
+        verify(newsApi).getHighlights()
+        assertEquals(expected, response)
+    }
+
     companion object {
         private val name = "felipe"
         private val email = "felipe.faustini@email.com"
@@ -266,6 +281,21 @@ class NewsRepositoryImplTest {
         private val token = "123"
         private val errorResponseBody =
             "{\"errors\":[{\"code\":\"BLANK\",\"field\":\"password\",\"message\":\"Password can't be blank\"}]}"
+        private val validHighlightsResponse = NewsResponse(
+            pagination = null,
+            data = listOf(
+                NewsResponseData(
+                    title = "Title",
+                    description = "Description",
+                    content = "Content",
+                    author = "Felipe",
+                    published_at = null,
+                    highlight = true,
+                    url = null,
+                    image_url = null
+                )
+            )
+        )
         private val validNewsResponse = NewsResponse(
             pagination = PaginationResponse(1, 1, 1, 1),
             data = listOf(

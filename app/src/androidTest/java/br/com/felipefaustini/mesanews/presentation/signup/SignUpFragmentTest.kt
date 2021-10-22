@@ -5,6 +5,7 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -13,6 +14,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import br.com.felipefaustini.domain.usecases.signup.ISignUpUseCase
 import br.com.felipefaustini.mesanews.R
+import br.com.felipefaustini.mesanews.utils.IdleResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -74,6 +76,8 @@ class SignUpFragmentTest: KoinTest {
         onView(withId(R.id.input_password)).perform(typeText(PASSWORD), closeSoftKeyboard())
         onView(withId(R.id.btn_sign_up)).perform(click())
         onView(withId(R.id.container_loading)).check(matches(isDisplayed()))
+
+        IdlingRegistry.getInstance().register(IdleResource.instanceSignUp)
 
         verify(navController, timeout(TIMEOUT))
             .navigate(R.id.action_signUpFragment_to_homeFragment, null)

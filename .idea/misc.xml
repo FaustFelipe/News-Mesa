@@ -12,6 +12,8 @@
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.34270833333333334" />
         <entry key="app/src/main/res/layout/ly_list_news_body_item.xml" value="0.34270833333333334" />
         <entry key="app/src/main/res/layout/ly_list_news_header_item.xml" value="0.34270833333333334" />
+        <entry key="app/src/main/res/layout/ly_list_news_highlight_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/ly_list_news_item.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/ly_loading_default.xml" value="0.2726449275362319" />
         <entry key="app/src/main/res/menu/menu_home.xml" value="0.34270833333333334" />
       </map>
