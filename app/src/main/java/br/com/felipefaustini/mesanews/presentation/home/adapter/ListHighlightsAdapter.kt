@@ -17,7 +17,9 @@ import br.com.felipefaustini.mesanews.utils.extensions.loadImage
 import com.google.android.material.imageview.ShapeableImageView
 import org.jetbrains.annotations.NotNull
 
-class ListHighlightsAdapter: ListAdapter<News, RecyclerView.ViewHolder>(
+class ListHighlightsAdapter(
+    private val onItemClickListener: () -> Unit
+): ListAdapter<News, RecyclerView.ViewHolder>(
     getHighlightsDiffUtilCallback()
 ) {
 
@@ -33,7 +35,7 @@ class ListHighlightsAdapter: ListAdapter<News, RecyclerView.ViewHolder>(
         val item = getItem(position)
         when(holder) {
             is HighlightsViewHolder -> {
-                holder.itemView.setOnClickListener {  }
+                holder.itemView.setOnClickListener { onItemClickListener.invoke() }
                 holder.imgHighlight.loadImage(item.imageUrl)
                 holder.txtTitle.text = item.title
                 holder.btnBookmarkNews.setImageDrawable(

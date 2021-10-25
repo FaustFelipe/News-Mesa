@@ -14,7 +14,9 @@ import br.com.felipefaustini.mesanews.utils.extensions.inflate
 import br.com.felipefaustini.mesanews.utils.extensions.loadImage
 import org.jetbrains.annotations.NotNull
 
-class ListNewsAdapter: ListAdapter<News, RecyclerView.ViewHolder>(
+class ListNewsAdapter(
+    private val onItemClickListener: () -> Unit
+): ListAdapter<News, RecyclerView.ViewHolder>(
     getNewsDiffUtilCallback()
 ) {
 
@@ -30,7 +32,7 @@ class ListNewsAdapter: ListAdapter<News, RecyclerView.ViewHolder>(
         val item = getItem(position)
         when(holder) {
             is NewsViewHolder -> {
-                holder.itemView.setOnClickListener {  }
+                holder.itemView.setOnClickListener { onItemClickListener.invoke() }
                 holder.imgNews.loadImage(item.imageUrl)
                 holder.txtDateNews.text = item.publishedAt
                 holder.txtTitle.text = item.title

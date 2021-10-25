@@ -31,12 +31,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_splashFragment_to_signInFragment">
+                            <entry key="action_onboardingFragment_to_signInFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_splashFragment_to_signUpFragment">
+                            <entry key="action_onboardingFragment_to_signUpFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -58,6 +58,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_signInFragment_to_homeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_signInFragment_to_signUpFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -99,6 +104,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_splashFragment_to_homeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_splashFragment_to_onboardingFragment">
                               <value>
                                 <LayoutPositions />

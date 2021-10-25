@@ -4,8 +4,13 @@ import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem
+import androidx.test.espresso.contrib.RecyclerViewActions.scrollTo
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import br.com.felipefaustini.domain.usecases.home.IHomeUseCase
@@ -20,7 +25,7 @@ import org.koin.core.context.unloadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.test.KoinTest
-import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
@@ -63,17 +68,41 @@ class HomeFragmentTest : KoinTest {
     }
 
     @Test
-    fun clickFourthItem_shouldOpenDetailsNews() {
+    fun clickFourthItemHighlights_shouldOpenDetailsNews() {
         IdlingRegistry.getInstance().register(IdleResource.instanceHighlights)
 
-        // TODO implement
+        onView(withId(R.id.recycler_highlights)).perform(
+            scrollTo<RecyclerView.ViewHolder>(
+                hasDescendant(withText("Title News 4"))
+            )
+        )
+        onView(withId(R.id.recycler_highlights)).perform(
+            actionOnItem<RecyclerView.ViewHolder>(
+                hasDescendant(withText("Title News 4")), click()
+            )
+        )
+
+        verify(navController, timeout(TIMEOUT))
+            .navigate(R.id.action_homeFragment_to_detailsFragment, null)
     }
 
     @Test
-    fun clickThirdItem_shouldOpenDetailsNews() {
+    fun clickFirstItemNews_shouldOpenDetailsNews() {
         IdlingRegistry.getInstance().register(IdleResource.instanceNews)
 
-        // TODO implement
+        onView(withId(R.id.recycler_news)).perform(
+            scrollTo<RecyclerView.ViewHolder>(
+                hasDescendant(withText("Title News 1"))
+            )
+        )
+        onView(withId(R.id.recycler_news)).perform(
+            actionOnItem<RecyclerView.ViewHolder>(
+                hasDescendant(withText("Title News 1")), click()
+            )
+        )
+
+        verify(navController, timeout(TIMEOUT))
+            .navigate(R.id.action_homeFragment_to_detailsFragment, null)
     }
 
     companion object {

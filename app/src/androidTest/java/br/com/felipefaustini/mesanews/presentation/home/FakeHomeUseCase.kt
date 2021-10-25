@@ -73,14 +73,14 @@ class FakeHomeUseCase: IHomeUseCase {
 
     override suspend fun getHighlights(): Result<List<News>> {
         IdleResource.instanceHighlights.increment()
-        delay(1_500L)
+        delay(1_000L)
         IdleResource.instanceHighlights.decrement()
         return Result.Success(listNews)
     }
 
     override suspend fun getNews(): Result<List<News>> {
         IdleResource.instanceNews.increment()
-        delay(1_500L)
+        delay(1_000L)
         IdleResource.instanceNews.decrement()
         return Result.Success(listNews)
     }

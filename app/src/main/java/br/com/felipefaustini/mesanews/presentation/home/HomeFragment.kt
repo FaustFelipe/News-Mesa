@@ -13,8 +13,8 @@ class HomeFragment: BaseFragment(R.layout.fragment_home, R.menu.menu_home) {
 
     private val viewModel: HomeViewModel by viewModel()
 
-    private val highlightsAdapter = ListHighlightsAdapter()
-    private val newsAdapter = ListNewsAdapter()
+    private val highlightsAdapter = ListHighlightsAdapter(::onNewsClicked)
+    private val newsAdapter = ListNewsAdapter(::onNewsClicked)
 
     override fun getToolbar(): Toolbar? {
         return toolbar
@@ -54,6 +54,10 @@ class HomeFragment: BaseFragment(R.layout.fragment_home, R.menu.menu_home) {
         viewModel.listHighlights()
 
         viewModel.listNews()
+    }
+
+    private fun onNewsClicked() {
+        navigate(R.id.action_homeFragment_to_detailsFragment)
     }
 
 }
