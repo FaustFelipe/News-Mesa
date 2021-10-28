@@ -1,15 +1,21 @@
 package br.com.felipefaustini.mesanews.presentation.home.adapter
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.felipefaustini.domain.models.News
 import br.com.felipefaustini.mesanews.R
+import br.com.felipefaustini.mesanews.databinding.LyListNewsItemBinding
+import br.com.felipefaustini.mesanews.utils.IdleResource
 import br.com.felipefaustini.mesanews.utils.extensions.inflate
 import br.com.felipefaustini.mesanews.utils.extensions.loadImage
 import org.jetbrains.annotations.NotNull
@@ -32,13 +38,23 @@ class ListNewsAdapter(
         val item = getItem(position)
         when(holder) {
             is NewsViewHolder -> {
-                holder.itemView.setOnClickListener { onItemClickListener.invoke() }
-                holder.imgNews.loadImage(item.imageUrl)
-                holder.txtDateNews.text = item.publishedAt
-                holder.txtTitle.text = item.title
-                holder.txtDesc.text = item.description
-                holder.btnBookmarkNews.setOnClickListener {  }
+                holder.binding?.news = item
+                holder.binding?.root?.setOnClickListener { onItemClickListener.invoke() }
+                holder.binding?.btnBookmarkNews?.setOnClickListener {  }
+                holder.binding?.btnBookmarkNews?.setImageDrawable(
+                    getImageForBookmarkedNews(holder.binding.root.context)
+                )
+                holder.binding?.executePendingBindings()
             }
+        }
+    }
+
+    private fun getImageForBookmarkedNews(context: Context): Drawable? {
+        val bookmarked = false
+        return if (bookmarked) {
+            ContextCompat.getDrawable(context, R.drawable.ic_bookmark_black_24)
+        } else {
+            ContextCompat.getDrawable(context, R.drawable.ic_bookmark_border_black_24)
         }
     }
 
@@ -48,11 +64,7 @@ class ListNewsAdapter(
     }
 
     private inner class NewsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val imgNews = itemView.findViewById<AppCompatImageView>(R.id.img_news)
-        val btnBookmarkNews = itemView.findViewById<AppCompatImageButton>(R.id.btn_bookmark_news)
-        val txtDateNews = itemView.findViewById<AppCompatTextView>(R.id.txt_date_news)
-        val txtTitle = itemView.findViewById<AppCompatTextView>(R.id.txt_title)
-        val txtDesc = itemView.findViewById<AppCompatTextView>(R.id.txt_desc)
+        val binding = DataBindingUtil.bind<LyListNewsItemBinding>(itemView)
     }
 
 }

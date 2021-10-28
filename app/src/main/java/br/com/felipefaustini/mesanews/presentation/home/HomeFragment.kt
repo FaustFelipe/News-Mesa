@@ -3,13 +3,14 @@ package br.com.felipefaustini.mesanews.presentation.home
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import br.com.felipefaustini.mesanews.R
+import br.com.felipefaustini.mesanews.databinding.FragmentHomeBinding
 import br.com.felipefaustini.mesanews.presentation.BaseFragment
 import br.com.felipefaustini.mesanews.presentation.home.adapter.ListHighlightsAdapter
 import br.com.felipefaustini.mesanews.presentation.home.adapter.ListNewsAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment: BaseFragment(R.layout.fragment_home, R.menu.menu_home) {
+class HomeFragment: BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.menu.menu_home) {
 
     private val viewModel: HomeViewModel by viewModel()
 
@@ -21,6 +22,8 @@ class HomeFragment: BaseFragment(R.layout.fragment_home, R.menu.menu_home) {
     }
 
     override fun setupViews() {
+        binding?.viewModel = viewModel
+
         setupToolbar()
 
         recycler_highlights.adapter = highlightsAdapter

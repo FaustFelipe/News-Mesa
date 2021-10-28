@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.felipefaustini.domain.models.News
 import br.com.felipefaustini.mesanews.R
+import br.com.felipefaustini.mesanews.databinding.LyListNewsHighlightItemBinding
 import br.com.felipefaustini.mesanews.utils.extensions.inflate
 import br.com.felipefaustini.mesanews.utils.extensions.loadImage
 import com.google.android.material.imageview.ShapeableImageView
@@ -35,14 +37,13 @@ class ListHighlightsAdapter(
         val item = getItem(position)
         when(holder) {
             is HighlightsViewHolder -> {
-                holder.itemView.setOnClickListener { onItemClickListener.invoke() }
-                holder.imgHighlight.loadImage(item.imageUrl)
-                holder.txtTitle.text = item.title
-                holder.btnBookmarkNews.setImageDrawable(
-                    getImageForBookmarkedNews(holder.itemView.context)
+                holder.binding?.news = item
+                holder.binding?.root?.setOnClickListener { onItemClickListener.invoke() }
+                holder.binding?.btnBookmarkNews?.setOnClickListener {  }
+                holder.binding?.btnBookmarkNews?.setImageDrawable(
+                    getImageForBookmarkedNews(holder.binding.root.context)
                 )
-                holder.btnBookmarkNews.setOnClickListener {  }
-                holder.txtDateNews.text = item.publishedAt
+                holder.binding?.executePendingBindings()
             }
         }
     }
@@ -62,10 +63,7 @@ class ListHighlightsAdapter(
     }
 
     private inner class HighlightsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val imgHighlight = itemView.findViewById<ShapeableImageView>(R.id.img_highlight)
-        val txtTitle = itemView.findViewById<AppCompatTextView>(R.id.txt_title)
-        val btnBookmarkNews = itemView.findViewById<AppCompatImageButton>(R.id.btn_bookmark_news)
-        val txtDateNews = itemView.findViewById<AppCompatTextView>(R.id.txt_date_news)
+        val binding = DataBindingUtil.bind<LyListNewsHighlightItemBinding>(itemView)
     }
 
 }

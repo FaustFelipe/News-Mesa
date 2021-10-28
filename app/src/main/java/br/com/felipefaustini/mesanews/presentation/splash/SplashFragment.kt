@@ -3,10 +3,11 @@ package br.com.felipefaustini.mesanews.presentation.splash
 import android.os.Handler
 import android.os.Looper
 import br.com.felipefaustini.mesanews.R
+import br.com.felipefaustini.mesanews.databinding.FragmentSplashBinding
 import br.com.felipefaustini.mesanews.presentation.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SplashFragment: BaseFragment(R.layout.fragment_splash) {
+class SplashFragment: BaseFragment<FragmentSplashBinding>(R.layout.fragment_splash) {
 
     private val viewModel: SplashViewModel by viewModel()
 

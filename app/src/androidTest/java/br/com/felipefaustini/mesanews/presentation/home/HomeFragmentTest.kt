@@ -14,7 +14,9 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import br.com.felipefaustini.domain.usecases.home.IHomeUseCase
+import br.com.felipefaustini.mesanews.util.DataBindingIdlingResource
 import br.com.felipefaustini.mesanews.R
+import br.com.felipefaustini.mesanews.util.monitorFragment
 import br.com.felipefaustini.mesanews.utils.IdleResource
 import org.junit.After
 import org.junit.Before
@@ -37,6 +39,18 @@ class HomeFragmentTest : KoinTest {
     private lateinit var fakeHomeUseCase: FakeHomeUseCase
 
     lateinit var mockModule: Module
+
+    private val dataBindingIdlingResource = DataBindingIdlingResource()
+
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(dataBindingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
+    }
 
     @Before
     fun loadModules() {
@@ -65,6 +79,8 @@ class HomeFragmentTest : KoinTest {
         scenario.onFragment {
             Navigation.setViewNavController(it.view!!, navController)
         }
+
+        dataBindingIdlingResource.monitorFragment(scenario)
     }
 
     @Test

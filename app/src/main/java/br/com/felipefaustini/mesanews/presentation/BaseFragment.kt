@@ -1,26 +1,37 @@
 package br.com.felipefaustini.mesanews.presentation
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import br.com.felipefaustini.mesanews.R
 
-abstract class BaseFragment(
-    @LayoutRes layoutRes: Int = 0,
+abstract class BaseFragment<A: ViewDataBinding>(
+    @LayoutRes private val layoutRes: Int = 0,
     @MenuRes private val menuResId: Int = 0
 ): Fragment(layoutRes) {
 
     private var toolbar: Toolbar? = null
+
+    protected var binding: A? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
+        binding?.lifecycleOwner = viewLifecycleOwner
+        return binding?.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

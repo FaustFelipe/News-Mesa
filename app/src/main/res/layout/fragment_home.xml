@@ -1,79 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".presentation.home.HomeFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="@dimen/toolkit_dimen0"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/toolkit_stratos"
-        app:title="@string/home_title"
-        app:titleTextColor="@color/toolkit_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    <data>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/container_scroll"
-        android:layout_width="@dimen/toolkit_dimen0"
-        android:layout_height="@dimen/toolkit_dimen0"
-        android:fillViewport="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        <variable
+            name="viewModel"
+            type="br.com.felipefaustini.mesanews.presentation.home.HomeViewModel" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="@dimen/toolkit_dimen0"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/toolkit_stratos"
+            app:title="@string/home_title"
+            app:titleTextColor="@color/toolkit_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_highlights"
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="@dimen/toolkit_dimen50"
+            android:layout_height="@dimen/toolkit_dimen50"
+            android:visibility="@{viewModel.loadingLiveData}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/container_scroll"
+            android:layout_width="@dimen/toolkit_dimen0"
+            android:layout_height="@dimen/toolkit_dimen0"
+            android:fillViewport="true"
+            app:invisibility="@{viewModel.loadingLiveData}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/home_highlights"
-                android:layout_marginHorizontal="@dimen/toolkit_dimen16"
-                android:layout_marginTop="@dimen/toolkit_dimen24"
-                android:textAppearance="@style/Toolkit.Text.Roboto.Bold.18sp" />
+                android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_highlights"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_marginTop="@dimen/toolkit_dimen10"
-                tools:itemCount="3"
-                tools:listitem="@layout/ly_list_news_highlight_item" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_highlights"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_highlights"
+                    android:layout_marginHorizontal="@dimen/toolkit_dimen16"
+                    android:layout_marginTop="@dimen/toolkit_dimen24"
+                    android:textAppearance="@style/Toolkit.Text.Roboto.Bold.18sp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_latest_news"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/home_latest_news"
-                android:layout_marginHorizontal="@dimen/toolkit_dimen16"
-                android:layout_marginTop="@dimen/toolkit_dimen24"
-                android:textAppearance="@style/Toolkit.Text.Roboto.Bold.18sp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_highlights"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginTop="@dimen/toolkit_dimen10"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/ly_list_news_highlight_item" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_news"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="3"
-                tools:listitem="@layout/ly_list_news_item"
-                android:nestedScrollingEnabled="false"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_latest_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_latest_news"
+                    android:layout_marginHorizontal="@dimen/toolkit_dimen16"
+                    android:layout_marginTop="@dimen/toolkit_dimen24"
+                    android:textAppearance="@style/Toolkit.Text.Roboto.Bold.18sp" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/ly_list_news_item"
+                    android:nestedScrollingEnabled="false"/>
 
-    </androidx.core.widget.NestedScrollView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
