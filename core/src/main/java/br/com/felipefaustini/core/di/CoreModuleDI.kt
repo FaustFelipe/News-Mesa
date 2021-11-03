@@ -2,7 +2,10 @@ package br.com.felipefaustini.core.di
 
 import br.com.felipefaustini.core.BuildConfig
 import br.com.felipefaustini.core.api.NewsApi
-import br.com.felipefaustini.core.api.interceptor.MainHeaderInterceptor
+import br.com.felipefaustini.core.api.interceptor.AuthTokenInterceptor
+import br.com.felipefaustini.core.api.interceptor.CacheInterceptor
+import br.com.felipefaustini.core.api.interceptor.ErrorInterceptor
+import br.com.felipefaustini.core.api.interceptor.ForceCacheInterceptor
 import br.com.felipefaustini.core.repository.NewsRepositoryImpl
 import br.com.felipefaustini.domain.repository.NewsRepository
 import kotlinx.coroutines.Dispatchers
@@ -23,28 +26,44 @@ val networkModule = module {
         return interceptor
     }
 
-    single { provideHttpLoggingInterceptor() }
+    factory { provideHttpLoggingInterceptor() }
 
-    fun provideHeaderInterceptor(): MainHeaderInterceptor {
-        return MainHeaderInterceptor()
-    }
+    factory { ErrorInterceptor() }
 
-    single { provideHeaderInterceptor() }
+    factory { CacheInterceptor() }
+
+    factory { ForceCacheInterceptor() }
+
+    factory { AuthTokenInterceptor() }
 
     fun provideOkhttpClient(
         interceptor: HttpLoggingInterceptor,
-        headerInterceptor: MainHeaderInterceptor
+        errorInterceptor: ErrorInterceptor,
+        cacheInterceptor: CacheInterceptor,
+        forceCacheInterceptor: ForceCacheInterceptor,
+        authTokenInterceptor: AuthTokenInterceptor
     ): OkHttpClient {
-        val client =  OkHttpClient.Builder()
+        val client = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
-            .addInterceptor(headerInterceptor)
+            .addInterceptor(errorInterceptor)
+//            .addNetworkInterceptor(cacheInterceptor)
+//            .addInterceptor(forceCacheInterceptor)
+            .addInterceptor(authTokenInterceptor)
         return client.build()
     }
 
-    single { provideOkhttpClient(interceptor = get(), headerInterceptor = get()) }
+    single {
+        provideOkhttpClient(
+            interceptor = get(),
+            errorInterceptor = get(),
+            cacheInterceptor = get(),
+            forceCacheInterceptor = get(),
+            authTokenInterceptor = get()
+        )
+    }
 
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         val baseUrl = BuildConfig.BASE_URL

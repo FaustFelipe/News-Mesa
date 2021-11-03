@@ -93,4 +93,7 @@ dependencies {
 
     kapt "com.android.databinding:compiler:$gradle_version"
 
+    // EventBus
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
 }

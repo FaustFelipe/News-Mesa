@@ -74,4 +74,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_version"
     testImplementation "androidx.arch.core:core-testing:$coretesting_version"
+
+    // EventBus
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }

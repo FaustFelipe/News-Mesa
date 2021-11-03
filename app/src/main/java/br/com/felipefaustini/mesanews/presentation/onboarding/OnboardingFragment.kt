@@ -24,10 +24,7 @@ class OnboardingFragment: BaseFragment<FragmentOnboardingBinding>(R.layout.fragm
     }
 
     fun onClickRegister(view: View) {
-        navigate(
-            R.id.action_onboardingFragment_to_signUpFragment,
-            enterFrom = NavigateEnterAnimFrom.BOTTOM
-        )
+        navigate(R.id.action_onboardingFragment_to_signUpFragment)
     }
 
 }

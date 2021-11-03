@@ -26,8 +26,6 @@ suspend fun <T : Any> safeCall(
 
 internal fun handleApiCodeException(code: Int): Result.Error {
     return when (code) {
-        HttpURLConnection.HTTP_NOT_FOUND -> Result.Error(ErrorEntity.NotFound)
-        HttpURLConnection.HTTP_FORBIDDEN -> Result.Error(ErrorEntity.AccessDenied)
         HttpURLConnection.HTTP_UNAUTHORIZED -> Result.Error(ErrorEntity.Unauthorized)
         HttpURLConnection.HTTP_UNAVAILABLE -> Result
             .Error(ErrorEntity.ServiceUnavailable)

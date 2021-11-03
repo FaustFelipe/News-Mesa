@@ -14,10 +14,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import br.com.felipefaustini.mesanews.R
 
-abstract class BaseFragment<A: ViewDataBinding>(
+abstract class BaseFragment<A : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int = 0,
     @MenuRes private val menuResId: Int = 0
-): Fragment(layoutRes) {
+) : Fragment(layoutRes) {
 
     private var toolbar: Toolbar? = null
 
@@ -39,6 +39,14 @@ abstract class BaseFragment<A: ViewDataBinding>(
         setupViews()
         setupActions()
         setupObservables()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (menuResId != 0) {
+            inflater.inflate(menuResId, menu)
+        } else {
+            super.onCreateOptionsMenu(menu, inflater)
+        }
     }
 
     protected open fun setupToolbar() {
@@ -63,41 +71,13 @@ abstract class BaseFragment<A: ViewDataBinding>(
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if (menuResId != 0) {
-            inflater.inflate(menuResId, menu)
-        } else {
-            super.onCreateOptionsMenu(menu, inflater)
-        }
-    }
-
-    protected open fun navigate(
-        @IdRes resId: Int,
-        args: Bundle? = null,
-        enterFrom: NavigateEnterAnimFrom = NavigateEnterAnimFrom.RIGHT
-    ) {
+    protected open fun navigate(@IdRes resId: Int, args: Bundle? = null) {
         val options = NavOptions.Builder()
-            .setEnterAnim(
-                if (enterFrom == NavigateEnterAnimFrom.RIGHT) R.anim.toolkit_slide_in_right
-                else R.anim.toolkit_slide_in_down
-            )
-            .setExitAnim(
-                if (enterFrom == NavigateEnterAnimFrom.RIGHT) R.anim.toolkit_slide_out_left
-                else R.anim.toolkit_slide_out_down
-            )
-            .setPopEnterAnim(
-                if (enterFrom == NavigateEnterAnimFrom.RIGHT) R.anim.toolkit_slide_in_left
-                else R.anim.toolkit_slide_pop_out_down
-            )
-            .setPopExitAnim(
-                if (enterFrom == NavigateEnterAnimFrom.RIGHT) R.anim.toolkit_slide_out_right
-                else R.anim.toolkit_slide_pop_in_down
-            )
         with(findNavController()) {
             currentDestination?.getAction(resId)?.navOptions?.let {
                 options.setPopUpTo(it.popUpTo, it.isPopUpToInclusive)
             }
-            navigate(resId, args/*, options.build()*/)
+            navigate(resId, args)
         }
     }
 
@@ -120,11 +100,6 @@ abstract class BaseFragment<A: ViewDataBinding>(
         } else {
             activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         }
-    }
-
-    protected enum class NavigateEnterAnimFrom {
-        RIGHT,
-        BOTTOM
     }
 
 }

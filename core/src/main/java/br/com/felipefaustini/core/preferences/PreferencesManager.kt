@@ -11,6 +11,7 @@ object PreferencesManager {
 
     private lateinit var sharedPreferences: SharedPreferences
 
+    // TODO("is it a good practice thinking about clean architecture?")
     fun Application.setupPreferences() {
         sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
