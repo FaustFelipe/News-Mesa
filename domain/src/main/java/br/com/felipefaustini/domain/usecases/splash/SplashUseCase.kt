@@ -7,7 +7,7 @@ class SplashUseCase(
 ): ISplashUseCase {
 
     override fun isUserSignedIn(): Boolean {
-        return repository.isUserSidnedIn()
+        return repository.getToken().isNotEmpty()
     }
 
 }

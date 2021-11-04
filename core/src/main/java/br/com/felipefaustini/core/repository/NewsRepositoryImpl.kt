@@ -54,7 +54,4 @@ class NewsRepositoryImpl(
         return PreferencesManager.getToken()
     }
 
-    override fun isUserSidnedIn(): Boolean {
-        return PreferencesManager.getToken().isNotEmpty()
-    }
 }
