@@ -5,7 +5,7 @@ import br.com.felipefaustini.core.models.mappers.NewsMapper
 import br.com.felipefaustini.core.models.mappers.SignInMapper
 import br.com.felipefaustini.core.models.mappers.SignUpMapper
 import br.com.felipefaustini.core.preferences.PreferencesManager
-import br.com.felipefaustini.core.utils.handleApiCodeException
+import br.com.felipefaustini.core.utils.handleResponseCall
 import br.com.felipefaustini.core.utils.safeCall
 import br.com.felipefaustini.domain.models.News
 import br.com.felipefaustini.domain.models.SignIn
@@ -22,44 +22,28 @@ class NewsRepositoryImpl(
 
     override suspend fun signIn(signIn: SignIn): Result<Token> = safeCall(coroutineContext) {
         val request = SignInMapper.map(signIn)
-        val response = api.postSignIn(request)
-        val headers = response.headers()
-        if (!response.isSuccessful) {
-            return@safeCall handleApiCodeException(response.code())
+        return@safeCall handleResponseCall(api.postSignIn(request)) { data ->
+            Token(token = data.token)
         }
-        val data = response.body()!!
-        Result.Success(Token(token = data.token))
     }
 
     override suspend fun signUp(signUp: SignUp): Result<Token> = safeCall(coroutineContext) {
         val request = SignUpMapper.map(signUp)
-        val response = api.postSignUp(request)
-        val headers = response.headers()
-        if (!response.isSuccessful) {
-            return@safeCall handleApiCodeException(response.code())
+        return@safeCall handleResponseCall(api.postSignUp(request)) { data ->
+            Token(token = data.token)
         }
-        val data = response.body()!!
-        Result.Success(Token(token = data.token))
     }
 
     override suspend fun getHighlights(): Result<List<News>> = safeCall(coroutineContext) {
-        val response = api.getHighlights()
-        val headers = response.headers()
-        if (!response.isSuccessful) {
-            return@safeCall handleApiCodeException(response.code())
+        return@safeCall handleResponseCall(api.getHighlights()) { data ->
+            data.data?.map { NewsMapper.map(it) } ?: emptyList()
         }
-        val data = response.body()!!
-        Result.Success(data.data?.map { NewsMapper.map(it) } ?: emptyList())
     }
 
     override suspend fun getNews(): Result<List<News>> = safeCall(coroutineContext) {
-        val response = api.getNews()
-        val headers = response.headers()
-        if (!response.isSuccessful) {
-            return@safeCall handleApiCodeException(response.code())
+        return@safeCall handleResponseCall(api.getNews()) { data ->
+            data.data?.map { NewsMapper.map(it) } ?: emptyList()
         }
-        val data = response.body()!!
-        Result.Success(data.data?.map { NewsMapper.map(it) } ?: emptyList())
     }
 
     override fun saveToken(token: Token) {
@@ -73,5 +57,4 @@ class NewsRepositoryImpl(
     override fun isUserSidnedIn(): Boolean {
         return PreferencesManager.getToken().isNotEmpty()
     }
-
 }

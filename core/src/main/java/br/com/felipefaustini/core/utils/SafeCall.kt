@@ -4,6 +4,7 @@ import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import java.net.HttpURLConnection
 import kotlin.coroutines.CoroutineContext
@@ -23,6 +24,16 @@ suspend fun <T : Any> safeCall(
             }
         }
     }
+
+fun <Y: Any, T: Any> handleResponseCall(call: Response<Y>, result: (Y) -> T): Result<T> {
+    return if (call.isSuccessful) {
+        val data = call.body()!!
+        val dataFormatted = result.invoke(data)
+        Result.Success(dataFormatted)
+    } else {
+        handleApiCodeException(call.code())
+    }
+}
 
 internal fun handleApiCodeException(code: Int): Result.Error {
     return when (code) {

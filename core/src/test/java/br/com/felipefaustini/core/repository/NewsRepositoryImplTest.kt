@@ -71,7 +71,7 @@ class NewsRepositoryImplTest {
         val response = repository.signIn(SignIn(email = email, password = password))
 
         verify(newsApi).postSignIn(SignInRequest(email = email, password = password))
-        assertEquals(Result.Error(ErrorEntity.NotFound), response)
+        assertEquals(Result.Error(ErrorEntity.Unknown), response)
     }
 
     @Test
@@ -88,7 +88,7 @@ class NewsRepositoryImplTest {
         val response = repository.signIn(SignIn(email, password))
 
         verify(newsApi).postSignIn(SignInRequest(email, password))
-        assertEquals(Result.Error(ErrorEntity.AccessDenied), response)
+        assertEquals(Result.Error(ErrorEntity.Unknown), response)
     }
 
     @Test
@@ -170,7 +170,7 @@ class NewsRepositoryImplTest {
         val response = repository.signUp(SignUp(name, email, password))
 
         verify(newsApi).postSignUp(SignUpRequest(name, email, password))
-        assertEquals(Result.Error(ErrorEntity.NotFound), response)
+        assertEquals(Result.Error(ErrorEntity.Unknown), response)
     }
 
     @Test
@@ -188,7 +188,7 @@ class NewsRepositoryImplTest {
         val response = repository.signUp(SignUp(name, email, password))
 
         verify(newsApi).postSignUp(SignUpRequest(name, email, password))
-        assertEquals(Result.Error(ErrorEntity.AccessDenied), response)
+        assertEquals(Result.Error(ErrorEntity.Unknown), response)
     }
 
     @Test
