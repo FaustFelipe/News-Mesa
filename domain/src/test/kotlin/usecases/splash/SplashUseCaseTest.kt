@@ -28,8 +28,9 @@ class SplashUseCaseTest {
     @Test
     fun isUserSignedIn_shouldReturnFalseForEmptyToken() {
         val expected = false
-        whenever(repository.isUserSidnedIn())
-            .thenReturn(false)
+
+        whenever(repository.getToken())
+            .thenReturn("")
 
         val result = useCase.isUserSignedIn()
 
@@ -39,8 +40,9 @@ class SplashUseCaseTest {
     @Test
     fun isUserSignedIn_shouldReturnTrueForValidToken() {
         val expected = true
-        whenever(repository.isUserSidnedIn())
-            .thenReturn(true)
+
+        whenever(repository.getToken())
+            .thenReturn("123")
 
         val result = useCase.isUserSignedIn()
 

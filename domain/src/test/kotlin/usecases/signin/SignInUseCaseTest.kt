@@ -53,13 +53,13 @@ class SignInUseCaseTest {
         val signIn = SignIn(email, password)
 
         whenever(repository.signIn(signIn))
-            .thenReturn(Result.Error(ErrorEntity.NotFound))
+            .thenReturn(Result.Error(ErrorEntity.Unknown))
 
         val result = useCase.signIn(email, password)
 
         verify(repository).signIn(signIn)
         verifyNoMoreInteractions(repository)
-        assertEquals(Result.Error(ErrorEntity.NotFound), result)
+        assertEquals(Result.Error(ErrorEntity.Unknown), result)
     }
 
     @Test

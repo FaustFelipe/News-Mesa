@@ -67,12 +67,12 @@ class SignUpUseCaseTest {
 
     @Test
     fun signUp_returnNotFoundError() = runBlockingTest {
-        val expected = Result.Error(ErrorEntity.NotFound)
+        val expected = Result.Error(ErrorEntity.Unknown)
 
         val signUp = SignUp(name, email, password)
 
         whenever(repository.signUp(signUp))
-            .thenReturn(Result.Error(ErrorEntity.NotFound))
+            .thenReturn(Result.Error(ErrorEntity.Unknown))
 
         val result = useCase.signUp(name, email, password)
 
