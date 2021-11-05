@@ -83,6 +83,12 @@
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/app_nav_graph"
+            app:popUpToInclusive="true"/>
+
     </fragment>
 
     <fragment

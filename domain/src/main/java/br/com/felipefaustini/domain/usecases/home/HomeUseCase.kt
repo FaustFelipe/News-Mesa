@@ -16,4 +16,8 @@ class HomeUseCase(
         return repository.getNews()
     }
 
+    override fun signOut() {
+        repository.signOut()
+    }
+
 }

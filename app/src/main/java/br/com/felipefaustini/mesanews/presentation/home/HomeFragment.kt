@@ -7,7 +7,6 @@ import br.com.felipefaustini.mesanews.databinding.FragmentHomeBinding
 import br.com.felipefaustini.mesanews.presentation.BaseFragment
 import br.com.felipefaustini.mesanews.presentation.home.adapter.ListHighlightsAdapter
 import br.com.felipefaustini.mesanews.presentation.home.adapter.ListNewsAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment: BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.menu.menu_home) {
@@ -18,7 +17,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.
     private val newsAdapter = ListNewsAdapter(::onNewsClicked)
 
     override fun getToolbar(): Toolbar? {
-        return toolbar
+        return binding?.toolbar
     }
 
     override fun setupViews() {
@@ -26,15 +25,19 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.
 
         setupToolbar()
 
-        recycler_highlights.adapter = highlightsAdapter
+        binding?.recyclerHighlights?.adapter = highlightsAdapter
 
-        recycler_news.adapter = newsAdapter
+        binding?.recyclerNews?.adapter = newsAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.action_filter -> {
 
+                true
+            }
+            R.id.action_logout -> {
+                viewModel.signOut()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -52,6 +55,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(R.layout.fragment_home, R.
 
         viewModel.listNewsLiveData.observe(viewLifecycleOwner) {
             newsAdapter.setData(it)
+        }
+
+        viewModel.signOutSucceedLiveData.observe(viewLifecycleOwner) {
+            if (it) navigate(R.id.action_homeFragment_to_onboardingFragment)
         }
 
         viewModel.listHighlights()

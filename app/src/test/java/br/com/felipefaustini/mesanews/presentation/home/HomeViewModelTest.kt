@@ -93,6 +93,15 @@ class HomeViewModelTest {
         assertEquals(expected, result)
     }
 
+    @Test
+    fun signOut_shouldSignOutUser() {
+        homeViewModel.signOut()
+
+        val result = homeViewModel.signOutSucceedLiveData.getOrAwaitValue()
+
+        assertEquals(true, result)
+    }
+
     companion object {
         private val NEWS = News(
             title = "Title",

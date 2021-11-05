@@ -13,4 +13,5 @@ interface NewsRepository {
     suspend fun getNews(): Result<List<News>>
     fun saveToken(token: Token)
     fun getToken(): String
+    fun signOut()
 }

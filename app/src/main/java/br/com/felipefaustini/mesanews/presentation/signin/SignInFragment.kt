@@ -5,7 +5,6 @@ import androidx.appcompat.widget.Toolbar
 import br.com.felipefaustini.mesanews.R
 import br.com.felipefaustini.mesanews.databinding.FragmentSigninBinding
 import br.com.felipefaustini.mesanews.presentation.BaseFragment
-import kotlinx.android.synthetic.main.fragment_signin.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInFragment: BaseFragment<FragmentSigninBinding>(R.layout.fragment_signin) {
@@ -19,7 +18,7 @@ class SignInFragment: BaseFragment<FragmentSigninBinding>(R.layout.fragment_sign
     }
 
     override fun getToolbar(): Toolbar? {
-        return toolbar
+        return binding?.toolbar
     }
 
     override fun setupActions() {

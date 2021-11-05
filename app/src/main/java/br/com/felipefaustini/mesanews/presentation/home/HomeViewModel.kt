@@ -6,6 +6,7 @@ import br.com.felipefaustini.domain.models.News
 import br.com.felipefaustini.domain.usecases.home.IHomeUseCase
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.mesanews.presentation.BaseViewModel
+import br.com.felipefaustini.mesanews.utils.EventLiveData
 
 class HomeViewModel(
     private val useCase: IHomeUseCase
@@ -16,6 +17,9 @@ class HomeViewModel(
 
     private val _listNewsLiveData: MutableLiveData<List<News>> = MutableLiveData()
     val listNewsLiveData: LiveData<List<News>> = _listNewsLiveData
+
+    private val _signOutSucceedLiveData: EventLiveData<Boolean> = EventLiveData()
+    val signOutSucceedLiveData: LiveData<Boolean> = _signOutSucceedLiveData
 
     fun listHighlights() {
         launchDataLoad {
@@ -41,6 +45,11 @@ class HomeViewModel(
                 }
             }
         }
+    }
+
+    fun signOut() {
+        useCase.signOut()
+        _signOutSucceedLiveData.postValue(true)
     }
 
 }

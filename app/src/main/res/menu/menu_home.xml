@@ -9,4 +9,12 @@
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/home_signout"
+        android:icon="@drawable/ic_exit_24_white"
+        android:orderInCategory="200"
+        app:showAsAction="ifRoom"
+        android:contentDescription="banana"/>
+
 </menu>

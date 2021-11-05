@@ -14,8 +14,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import br.com.felipefaustini.domain.usecases.home.IHomeUseCase
-import br.com.felipefaustini.mesanews.util.DataBindingIdlingResource
 import br.com.felipefaustini.mesanews.R
+import br.com.felipefaustini.mesanews.util.DataBindingIdlingResource
 import br.com.felipefaustini.mesanews.util.monitorFragment
 import br.com.felipefaustini.mesanews.utils.IdleResource
 import org.junit.After

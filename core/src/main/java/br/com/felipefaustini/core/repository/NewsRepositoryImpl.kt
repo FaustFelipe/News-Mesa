@@ -54,4 +54,8 @@ class NewsRepositoryImpl(
         return PreferencesManager.getToken()
     }
 
+    override fun signOut() {
+        PreferencesManager.clearPreferences()
+    }
+
 }

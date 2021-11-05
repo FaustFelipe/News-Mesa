@@ -20,6 +20,7 @@
     <string name="home_filter">Filtrar</string>
     <string name="home_highlights">Destaques</string>
     <string name="home_latest_news">Últimas notícias</string>
+    <string name="home_signout">Sair</string>
     <!-- endregion home -->
 
 </resources>

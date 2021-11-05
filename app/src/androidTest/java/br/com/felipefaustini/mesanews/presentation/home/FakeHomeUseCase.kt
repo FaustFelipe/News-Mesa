@@ -85,4 +85,8 @@ class FakeHomeUseCase: IHomeUseCase {
         return Result.Success(listNews)
     }
 
+    override fun signOut() {
+
+    }
+
 }
